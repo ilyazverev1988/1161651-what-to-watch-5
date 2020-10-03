@@ -1,13 +1,31 @@
 import React from "react";
-import Mainscreen from "../main-screen/main-screen";
 import PropTypes from "prop-types";
+import {Switch, Route, BrowserRouter} from "react-router-dom";
+import Mainscreen from "../main-screen/main-screen";
+import AuthScreen from "../auth-screen/auth-screen";
+import MyList from "../my-list-screen/my-list-screen";
+import MoviePage from "../movie-page-screen/movie-page-screen";
+import ReviewForMovie from "../review-for-movie-screen/review-for-movie-screen";
+import Player from "../player-screen/player-screen";
+
 
 const App = (props) => {
 
   const {movieTitle, movieGenre, movieYear} = props;
 
   return (
-    <Mainscreen movieTitle={movieTitle} movieGenre={movieGenre} movieYear={movieYear}/>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <Mainscreen movieTitle={movieTitle} movieGenre={movieGenre} movieYear={movieYear}/>
+        </Route>
+        <Route exact path="/login" component={AuthScreen}/>
+        <Route exact path="/mylist" component={MyList}/>
+        <Route exact path="/films/:id" component = {MoviePage}/>
+        <Route exact path="/films/:id/review" component={ReviewForMovie}/>
+        <Route exact path="/player/:id" component={Player}/>
+      </Switch>
+    </BrowserRouter>
   );
 };
 
