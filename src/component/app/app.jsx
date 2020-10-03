@@ -23,7 +23,7 @@ const App = (props) => {
         <Route exact path="/mylist" component={MyList}/>
         <Route exact path="/films/:id" component = {MoviePage}/>
         <Route exact path="/films/:id/review" component={ReviewForMovie}/>
-        <Route exact path="/player" component={Player}/>
+        <Route exact path="/player/:id" component={Player}/>
       </Switch>
     </BrowserRouter>
   );
