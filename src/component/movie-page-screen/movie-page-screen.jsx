@@ -1,11 +1,30 @@
 import React from "react";
+import PropTypes from "prop-types";
+import propsForFilms from "../../mocks/prop-types-for-films";
+import propsForReviews from "../../mocks/prop-types-for-reviws";
 
-const MoviePage = () => {
+const MoviePage = (props) => {
+  // eslint-disable-next-line no-unused-vars
+  const {films, reviews} = props;
+  const {nameFilm, genre, releaseYear, filmCover, poster, commonScore, numberOfVotes, cast, producer, descriptionFilm} = films[0];
+  let textRating;
+  if (commonScore >= 0 && commonScore < 3) {
+    textRating = `Bad`;
+  } else if (commonScore >= 3 && commonScore < 5) {
+    textRating = `Normal`;
+  } else if (commonScore >= 5 && commonScore < 8) {
+    textRating = `Good`;
+  } else if (commonScore >= 8 && commonScore < 10) {
+    textRating = `Very good`;
+  } else if (commonScore === 10) {
+    textRating = `Awesome`;
+  }
+
   return (
     <section className="movie-card movie-card--full">
       <div className="movie-card__hero">
         <div className="movie-card__bg">
-          <img src="/img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={filmCover} alt={nameFilm}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -21,17 +40,17 @@ const MoviePage = () => {
 
           <div className="user-block">
             <div className="user-block__avatar">
-              <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
             </div>
           </div>
         </header>
 
         <div className="movie-card__wrap">
           <div className="movie-card__desc">
-            <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
+            <h2 className="movie-card__title">{nameFilm}</h2>
             <p className="movie-card__meta">
-              <span className="movie-card__genre">Drama</span>
-              <span className="movie-card__year">2014</span>
+              <span className="movie-card__genre">{genre}</span>
+              <span className="movie-card__year">{releaseYear}</span>
             </p>
 
             <div className="movie-card__buttons">
@@ -56,7 +75,7 @@ const MoviePage = () => {
       <div className="movie-card__wrap movie-card__translate-top">
         <div className="movie-card__info">
           <div className="movie-card__poster movie-card__poster--big">
-            <img src="/img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+            <img src={poster} alt={nameFilm} width="218"
               height="327"/>
           </div>
 
@@ -76,31 +95,30 @@ const MoviePage = () => {
             </nav>
 
             <div className="movie-rating">
-              <div className="movie-rating__score">8,9</div>
+              <div className="movie-rating__score">{commonScore}</div>
               <p className="movie-rating__meta">
-                <span className="movie-rating__level">Very good</span>
-                <span className="movie-rating__count">240 ratings</span>
+                <span className="movie-rating__level">{textRating}</span>
+                <span className="movie-rating__count">{numberOfVotes} ratings</span>
               </p>
             </div>
 
             <div className="movie-card__text">
-              <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge
-                Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave&apos;s friend and protege.</p>
+              <p>{descriptionFilm}</p>
 
-              <p>Gustave prides himself on providing first-class service to the hotel&apos;s guests, including satisfying the
-                sexual needs of the many elderly women who stay there. When one of Gustave&apos;s lovers dies mysteriously,
-                Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
+              <p className="movie-card__director"><strong>Director: {producer}</strong></p>
 
-              <p className="movie-card__director"><strong>Director: Wes Andreson</strong></p>
-
-              <p className="movie-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe
-                and other</strong></p>
+              <p className="movie-card__starring"><strong>Starring: {cast}</strong></p>
             </div>
           </div>
         </div>
       </div>
     </section>
   );
+};
+
+MoviePage.propTypes = {
+  films: PropTypes.arrayOf(propsForFilms).isRequired,
+  reviews: propsForReviews
 };
 
 export default MoviePage;
