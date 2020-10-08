@@ -4,7 +4,7 @@ import ListFilm from "../list-films/list-film";
 import propsForFilms from "../../mocks/prop-types-for-films";
 
 const Mainscreen = (props) => {
-  const {films} = props;
+  const {films, onListButtonClick, onFilmCardClick, onPlayButtonClick} = props;
   const {nameFilm, genre, releaseYear, filmCover} = films[0];
   return (
     <React.Fragment>
@@ -46,13 +46,13 @@ const Mainscreen = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button onClick={onPlayButtonClick} className="btn btn--play movie-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
+                <button onClick={onListButtonClick} className="btn btn--list movie-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
@@ -101,7 +101,7 @@ const Mainscreen = (props) => {
             </li>
           </ul>
 
-          <ListFilm films={films}/>
+          <ListFilm films={films} onFilmCardClick={onFilmCardClick}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -128,6 +128,9 @@ const Mainscreen = (props) => {
 
 Mainscreen.propTypes = {
   films: PropTypes.arrayOf(propsForFilms).isRequired,
+  onListButtonClick: PropTypes.func.isRequired,
+  onFilmCardClick: PropTypes.func.isRequired,
+  onPlayButtonClick: PropTypes.func.isRequired,
 };
 
 export default Mainscreen;

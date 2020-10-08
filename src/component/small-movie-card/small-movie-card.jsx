@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import propsForFilms from "../../mocks/prop-types-for-films";
 
 const SmallMovieCard = (props) => {
-  const {film, onMouseEnterCard} = props;
+  const {film, onMouseEnterCard, onFilmCardClick} = props;
 
   return (
     <article className="small-movie-card catalog__movies-card">
@@ -11,7 +11,8 @@ const SmallMovieCard = (props) => {
         onMouseOver={(evt) => {
           evt.preventDefault();
           onMouseEnterCard(film.nameFilm);
-        }}>
+        }}
+        onClick={onFilmCardClick}>
         <img src={film.preview}
           alt={film.nameFilm} width="280" height="175"/>
       </div>
@@ -23,6 +24,7 @@ const SmallMovieCard = (props) => {
 };
 
 SmallMovieCard.propTypes = {
+  onFilmCardClick: PropTypes.func.isRequired,
   onMouseEnterCard: PropTypes.func.isRequired,
   film: propsForFilms
 };

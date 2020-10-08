@@ -10,13 +10,16 @@ class MyList extends PureComponent {
   }
 
   render() {
-    const {films} = this.props;
+    const {films, onFilmCardClick, onLogoLinkClick} = this.props;
     const myFilm = films.slice(0, 4);
     return (
       <div className="user-page">
         <header className="page-header user-page__head">
           <div className="logo">
-            <a href="main.html" className="logo__link">
+            <a onClick={(evt)=>{
+              evt.preventDefault();
+              onLogoLinkClick();
+            }} href="main.html" className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -36,7 +39,7 @@ class MyList extends PureComponent {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <div className="catalog__movies-list">
-            {myFilm.map((film) => <SmallMovieCard key={film.nameFilm} film={film} onMouseEnterCard={()=>{
+            {myFilm.map((film) => <SmallMovieCard onFilmCardClick={onFilmCardClick} key={film.nameFilm} film={film} onMouseEnterCard={()=>{
               this.setState({filmActive: film.nameFilm});
             }}/>)}
           </div>
@@ -44,7 +47,10 @@ class MyList extends PureComponent {
 
         <footer className="page-footer">
           <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
+            <a onClick={(evt)=>{
+              evt.preventDefault();
+              onLogoLinkClick();
+            }} href="main.html" className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -62,6 +68,8 @@ class MyList extends PureComponent {
 
 MyList.propTypes = {
   films: PropTypes.arrayOf(propsForFilms).isRequired,
+  onFilmCardClick: PropTypes.func.isRequired,
+  onLogoLinkClick: PropTypes.func.isRequired
 };
 
 export default MyList;

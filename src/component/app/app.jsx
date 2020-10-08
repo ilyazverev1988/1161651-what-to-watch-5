@@ -16,17 +16,33 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
-          <Mainscreen films={films}/>
-        </Route>
+        <Route exact path="/"
+          render={({history}) =>
+            (<Mainscreen films={films}
+              onListButtonClick={() => history.push(`/mylist`)}
+              onFilmCardClick={() => history.push(`/films/2`)}
+              onPlayButtonClick={() => history.push(`/player/:id`)}/>
+            )}
+        />
         <Route exact path="/login" component={AuthScreen}/>
-        <Route exact path="/mylist">
-          <MyList films={films}/>
-        </Route>
-        <Route exact path="/films/:id">
-          <MoviePage reviews={reviews} films={films}/>
-        </Route>
-        <Route exact path="/films/:id/review" component={ReviewForMovie}/>
+        <Route exact path="/mylist"
+          render={({history}) =>
+            (<MyList films={films}
+              onLogoLinkClick={() => history.push(`/`)}
+              onFilmCardClick={() => history.push(`/films/2`)}/>)}
+        />
+        <Route exact path="/films/:id"
+          render={({history})=>
+            (<MoviePage reviews={reviews} films={films}
+              onPlayButtonClick={() => history.push(`/player/:id`)}
+              onListButtonClick={() => history.push(`/mylist`)}
+              onLogoLinkClick={() => history.push(`/`)}
+              onAddReviewButtonClick = {()=>history.push(`/films/2/review`)}/>)}
+        />
+        <Route exact path="/films/:id/review"
+          render={({history})=>
+            (<ReviewForMovie films={films} onLogoLinkClick={() => history.push(`/`)}/>)}
+        />
         <Route exact path="/player/:id" component={Player}/>
       </Switch>
     </BrowserRouter>

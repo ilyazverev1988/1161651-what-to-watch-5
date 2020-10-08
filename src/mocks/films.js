@@ -18,7 +18,7 @@ export default [
   {
     preview: `img/dardjeeling-limited.jpg`,
     nameFilm: `Dardjeeling limited`,
-    poster: `img/bg-header.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
     filmCover: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Sci-Fi`,
     releaseYear: 2016,
@@ -34,7 +34,7 @@ export default [
   {
     preview: `img/bohemian-rhapsody.jpg`,
     nameFilm: `Bohemian rhapsody`,
-    poster: `img/bg-header.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
     filmCover: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Sci-Fi`,
     releaseYear: 2015,
@@ -50,7 +50,7 @@ export default [
   {
     preview: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     nameFilm: `Fantastic beasts the crimes of grindelwald`,
-    poster: `img/bg-header.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
     filmCover: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Sci-Fi`,
     releaseYear: 2018,
@@ -66,7 +66,7 @@ export default [
   {
     preview: `img/johnny-english.jpg`,
     nameFilm: `Johnny english`,
-    poster: `img/bg-header.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
     filmCover: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Sci-Fi`,
     releaseYear: 2019,
@@ -82,7 +82,7 @@ export default [
   {
     preview: `img/macbeth.jpg`,
     nameFilm: `Macbeth`,
-    poster: `img/bg-header.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
     filmCover: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Sci-Fi`,
     releaseYear: 2020,
@@ -98,7 +98,7 @@ export default [
   {
     preview: `img/no-country-for-old-men.jpg`,
     nameFilm: `No country for old men`,
-    poster: `img/bg-header.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
     filmCover: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Sci-Fi`,
     releaseYear: 2017,
@@ -114,7 +114,7 @@ export default [
   {
     preview: `img/war-of-the-worlds.jpg`,
     nameFilm: `War of the worlds`,
-    poster: `img/bg-header.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
     filmCover: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Sci-Fi`,
     releaseYear: 2015,

@@ -10,10 +10,10 @@ class ListFilm extends PureComponent {
   }
 
   render() {
-    const {films} = this.props;
+    const {films, onFilmCardClick} = this.props;
     return (
       <div className="catalog__movies-list">
-        {films.map((film) => <SmallMovieCard key={film.nameFilm} film={film} onMouseEnterCard={()=>{
+        {films.map((film) => <SmallMovieCard key={film.nameFilm} film={film} onFilmCardClick={onFilmCardClick} onMouseEnterCard={()=>{
           this.setState({filmActive: film.nameFilm});
         }}/>)}
       </div>
@@ -23,6 +23,7 @@ class ListFilm extends PureComponent {
 
 ListFilm.propTypes = {
   films: PropTypes.arrayOf(propsForFilms).isRequired,
+  onFilmCardClick: PropTypes.func.isRequired,
 };
 
 export default ListFilm;

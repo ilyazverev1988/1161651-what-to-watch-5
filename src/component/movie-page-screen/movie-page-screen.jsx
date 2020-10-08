@@ -5,7 +5,7 @@ import propsForReviews from "../../mocks/prop-types-for-reviws";
 
 const MoviePage = (props) => {
   // eslint-disable-next-line no-unused-vars
-  const {films, reviews} = props;
+  const {films, reviews, onPlayButtonClick, onListButtonClick, onAddReviewButtonClick, onLogoLinkClick} = props;
   const {nameFilm, genre, releaseYear, filmCover, poster, commonScore, numberOfVotes, cast, producer, descriptionFilm} = films[0];
   let textRating;
   if (commonScore >= 0 && commonScore < 3) {
@@ -31,7 +31,10 @@ const MoviePage = (props) => {
 
         <header className="page-header movie-card__head">
           <div className="logo">
-            <a href="main.html" className="logo__link">
+            <a onClick={(evt)=>{
+              evt.preventDefault();
+              onLogoLinkClick();
+            }} href="main.html" className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -54,19 +57,23 @@ const MoviePage = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button">
+              <button onClick={onPlayButtonClick} className="btn btn--play movie-card__button" type="button">
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button">
+              <button onClick={onListButtonClick} className="btn btn--list movie-card__button" type="button">
                 <svg viewBox="0 0 19 20" width="19" height="20">
                   <use xlinkHref="#add"></use>
                 </svg>
                 <span>My list</span>
               </button>
-              <a href="add-review.html" className="btn movie-card__button">Add review</a>
+              <a onClick={(evt)=>{
+                evt.preventDefault();
+                onAddReviewButtonClick();
+              }}
+              href="add-review.html" className="btn movie-card__button">Add review</a>
             </div>
           </div>
         </div>
@@ -118,7 +125,11 @@ const MoviePage = (props) => {
 
 MoviePage.propTypes = {
   films: PropTypes.arrayOf(propsForFilms).isRequired,
-  reviews: propsForReviews
+  reviews: propsForReviews,
+  onPlayButtonClick: PropTypes.func.isRequired,
+  onListButtonClick: PropTypes.func.isRequired,
+  onAddReviewButtonClick: PropTypes.func.isRequired,
+  onLogoLinkClick: PropTypes.func.isRequired
 };
 
 export default MoviePage;
