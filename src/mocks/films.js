@@ -1,6 +1,6 @@
 export default [
   {
-    id:1,
+    id: 1,
     preview: `img/aviator.jpg`,
     nameFilm: `Aviator`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -17,7 +17,7 @@ export default [
     linkFullVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4 `
   },
   {
-    id:2,
+    id: 2,
     preview: `img/dardjeeling-limited.jpg`,
     nameFilm: `Dardjeeling limited`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -34,7 +34,7 @@ export default [
     linkFullVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4 `
   },
   {
-    id:3,
+    id: 3,
     preview: `img/bohemian-rhapsody.jpg`,
     nameFilm: `Bohemian rhapsody`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -51,7 +51,7 @@ export default [
     linkFullVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4 `
   },
   {
-    id:4,
+    id: 4,
     preview: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     nameFilm: `Fantastic beasts the crimes of grindelwald`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -68,7 +68,7 @@ export default [
     linkFullVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4 `
   },
   {
-    id:5,
+    id: 5,
     preview: `img/johnny-english.jpg`,
     nameFilm: `Johnny english`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -85,7 +85,7 @@ export default [
     linkFullVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4 `
   },
   {
-    id:6,
+    id: 6,
     preview: `img/macbeth.jpg`,
     nameFilm: `Macbeth`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -102,7 +102,7 @@ export default [
     linkFullVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4 `
   },
   {
-    id:7,
+    id: 7,
     preview: `img/no-country-for-old-men.jpg`,
     nameFilm: `No country for old men`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -119,7 +119,7 @@ export default [
     linkFullVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4 `
   },
   {
-    id:8,
+    id: 8,
     preview: `img/war-of-the-worlds.jpg`,
     nameFilm: `War of the worlds`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
