@@ -30,10 +30,10 @@ const SmallMovieCard = (props) => {
 };
 
 SmallMovieCard.propTypes = {
-  filmActive: PropTypes.string.isRequired,
+  filmActive: PropTypes.string,
   onFilmCardClick: PropTypes.func.isRequired,
-  onMouseEnterCard: PropTypes.func.isRequired,
-  onMouseOverCard: PropTypes.func.isRequired,
+  onMouseEnterCard: PropTypes.func,
+  onMouseOverCard: PropTypes.func,
   film: propsForFilms
 };
 

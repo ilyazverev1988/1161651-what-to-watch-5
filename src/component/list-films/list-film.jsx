@@ -25,7 +25,6 @@ class ListFilm extends PureComponent {
             });
           }}
           onMouseOverCard={() => {
-            // clearTimeout(timerId);
             this.setState({filmActive: ``});
             clearTimeout(this.state.timerId);
           }}/>)}

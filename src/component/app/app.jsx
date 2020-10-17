@@ -36,6 +36,7 @@ const App = (props) => {
             (<MoviePage reviews={reviews} films={films}
               onPlayButtonClick={() => history.push(`/player/:id`)}
               onListButtonClick={() => history.push(`/mylist`)}
+              onFilmCardClick={() => history.push(`/films/2`)}
               onLogoLinkClick={() => history.push(`/`)}
               onAddReviewButtonClick = {()=>history.push(`/films/2/review`)}/>)}
         />
