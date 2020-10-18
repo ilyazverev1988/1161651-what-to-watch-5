@@ -15,8 +15,8 @@ export const ActionCreator = {
     payload: films
   }),
 
-  changeNumberShownCards: (shownFilms) => ({
+  changeNumberShownCards: (numberShownFilms) => ({
     type: ActionType.CHANGE_NUMBER_SHOWN_FILMS,
-    payload: shownFilms
+    payload: numberShownFilms
   }),
 };
