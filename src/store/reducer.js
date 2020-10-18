@@ -8,7 +8,7 @@ const initialState = {
   activeGenre: ALL_GENRE,
   genresOfFilm: getUniqueGenresFilms(films),
   listOfCardsFilm: films,
-  cardsOfShownFilms: films.slice(0, BASE_NUMBER_OF_CARDS)
+  cardsOfShownFilms: BASE_NUMBER_OF_CARDS
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,7 +21,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CREAT_LIST_FILMS_OF_GENRE:
       return extend(state, {
         listOfCardsFilm: action.payload,
-        cardsOfShownFilms: action.payload.slice(0, BASE_NUMBER_OF_CARDS)
+        cardsOfShownFilms: BASE_NUMBER_OF_CARDS
       });
 
     case ActionType.CHANGE_NUMBER_SHOWN_FILMS:

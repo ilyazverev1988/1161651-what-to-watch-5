@@ -74,9 +74,9 @@ const Mainscreen = (props) => {
 
           <ListOfGenres/>
 
-          <ListFilm films={cardsOfShownFilms} onFilmCardClick={onFilmCardClick}/>
+          <ListFilm films={listOfCardsFilm.slice(0, cardsOfShownFilms)} onFilmCardClick={onFilmCardClick}/>
 
-          { listOfCardsFilm.length !== cardsOfShownFilms.length ? <ButtonShowMore/> : null }
+          { listOfCardsFilm.length > cardsOfShownFilms ? <ButtonShowMore/> : null }
 
         </section>
 
@@ -101,7 +101,7 @@ const Mainscreen = (props) => {
 Mainscreen.propTypes = {
   films: PropTypes.arrayOf(propsForFilms).isRequired,
   listOfCardsFilm: PropTypes.arrayOf(propsForFilms).isRequired,
-  cardsOfShownFilms: PropTypes.arrayOf(propsForFilms).isRequired,
+  cardsOfShownFilms: PropTypes.number.isRequired,
   onListButtonClick: PropTypes.func.isRequired,
   onFilmCardClick: PropTypes.func.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,

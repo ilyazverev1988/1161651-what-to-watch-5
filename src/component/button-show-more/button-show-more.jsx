@@ -22,7 +22,7 @@ const ButtonShowMore = (props) => {
 
 ButtonShowMore.propTypes = {
   listOfCardsFilm: PropTypes.arrayOf(propsForFilms).isRequired,
-  cardsOfShownFilms: PropTypes.arrayOf(propsForFilms).isRequired,
+  cardsOfShownFilms: PropTypes.number.isRequired,
   changeNumberShownCards: PropTypes.func.isRequired,
 };
 
@@ -34,7 +34,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   changeNumberShownCards(listOfCardsFilm, cardsOfShownFilms) {
 
-    dispatch(ActionCreator.changeNumberShownCards(listOfCardsFilm.slice(0, cardsOfShownFilms.length + BASE_NUMBER_OF_CARDS)));
+    dispatch(ActionCreator.changeNumberShownCards(cardsOfShownFilms + BASE_NUMBER_OF_CARDS));
   }
 });
 
