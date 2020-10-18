@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
+import {getFilmsByGenre} from "../../utils";
+import films from "../../mocks/films";
 
 const ListOfGenres = (props) => {
   const {genres, changeActiveFilter, activeGenre, changeFilmCards} = props;
@@ -11,7 +13,7 @@ const ListOfGenres = (props) => {
       {genres.map((genre, i) => <li key={`genre-${i}`} onClick={(evt)=>{
         evt.preventDefault();
         changeActiveFilter(genre);
-        changeFilmCards(genre);
+        changeFilmCards(films, genre);
       }
       } className={`catalog__genres-item ${activeGenre === genre ? `catalog__genres-item--active` : ``}`}>
         <a href="#" className="catalog__genres-link">{genre}</a>
@@ -29,15 +31,16 @@ ListOfGenres.propTypes = {
 
 const mapStateToProps = (state) => ({
   genres: state.genresOfFilm,
-  activeGenre: state.activeGenre
+  activeGenre: state.activeGenre,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   changeActiveFilter(filter) {
     dispatch(ActionCreator.changeActiveFilter(filter));
   },
-  changeFilmCards(filter) {
-    dispatch(ActionCreator.changeFilmCards(filter));
+  changeFilmCards(filmsForSort, filter) {
+    let filmsSortGenre = getFilmsByGenre(filmsForSort, filter);
+    dispatch(ActionCreator.changeFilmCards(filmsSortGenre));
   },
 });
 
