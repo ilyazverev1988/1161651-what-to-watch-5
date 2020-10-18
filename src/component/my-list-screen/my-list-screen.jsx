@@ -39,7 +39,7 @@ class MyList extends PureComponent {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <div className="catalog__movies-list">
-            {myFilm.map((film) => <SmallMovieCard onFilmCardClick={onFilmCardClick} key={film.nameFilm} film={film} onMouseEnterCard={()=>{
+            {myFilm.map((film) => <SmallMovieCard onFilmCardClick={onFilmCardClick} key={film.nameFilm} film={film} onMouseOverCard={()=>{}} onMouseEnterCard={()=>{
               this.setState({filmActive: film.nameFilm});
             }}/>)}
           </div>
