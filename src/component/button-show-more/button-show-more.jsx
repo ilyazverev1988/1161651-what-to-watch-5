@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 import propsForFilms from "../../mocks/prop-types-for-films";
+import constant from "../../const";
+const {BASE_NUMBER_OF_CARDS} = constant;
 
 const ButtonShowMore = (props) => {
   const {listOfCardsFilm, cardsOfShownFilms, changeNumberShownCards} = props;
@@ -32,7 +34,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   changeNumberShownCards(listOfCardsFilm, cardsOfShownFilms) {
 
-    dispatch(ActionCreator.changeNumberShownCards(listOfCardsFilm.slice(0, cardsOfShownFilms.length + 8)));
+    dispatch(ActionCreator.changeNumberShownCards(listOfCardsFilm.slice(0, cardsOfShownFilms.length + BASE_NUMBER_OF_CARDS)));
   }
 });
 
