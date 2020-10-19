@@ -5,9 +5,10 @@ import ListOfGenres from "../list-of-genres/list-of-genres";
 import propsForFilms from "../../mocks/prop-types-for-films";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
+import ButtonShowMore from "../button-show-more/button-show-more";
 
 const Mainscreen = (props) => {
-  const {films, onListButtonClick, onFilmCardClick, onPlayButtonClick, listOfCardsFilm} = props;
+  const {films, onListButtonClick, onFilmCardClick, onPlayButtonClick, listOfCardsFilm, cardsOfShownFilms} = props;
   const {nameFilm, genre, releaseYear, filmCover} = films[0];
   return (
     <React.Fragment>
@@ -73,11 +74,10 @@ const Mainscreen = (props) => {
 
           <ListOfGenres/>
 
-          <ListFilm films={listOfCardsFilm} onFilmCardClick={onFilmCardClick}/>
+          <ListFilm films={listOfCardsFilm.slice(0, cardsOfShownFilms)} onFilmCardClick={onFilmCardClick}/>
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          { listOfCardsFilm.length > cardsOfShownFilms ? <ButtonShowMore/> : null }
+
         </section>
 
         <footer className="page-footer">
@@ -101,6 +101,7 @@ const Mainscreen = (props) => {
 Mainscreen.propTypes = {
   films: PropTypes.arrayOf(propsForFilms).isRequired,
   listOfCardsFilm: PropTypes.arrayOf(propsForFilms).isRequired,
+  cardsOfShownFilms: PropTypes.number.isRequired,
   onListButtonClick: PropTypes.func.isRequired,
   onFilmCardClick: PropTypes.func.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
@@ -108,6 +109,7 @@ Mainscreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   listOfCardsFilm: state. listOfCardsFilm,
+  cardsOfShownFilms: state.cardsOfShownFilms
 });
 
 const mapDispatchToProps = (dispatch) => ({

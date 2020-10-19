@@ -1,4 +1,5 @@
-import {ALL_GENRE} from "./const";
+import constant from "./const";
+const {ALL_GENRE} = constant;
 
 export const extend = (a, b) => {
   return Object.assign({}, a, b);
