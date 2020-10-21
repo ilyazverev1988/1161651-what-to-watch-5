@@ -3,7 +3,10 @@ import PropTypes from "prop-types";
 import propsForFilms from "../../mocks/prop-types-for-films";
 import propsForReviews from "../../mocks/prop-types-for-reviws";
 import TabsForMoviePageScreen from "../tabs-for-movie-page-screen/tabs-for-movie-page-screen";
+import withTabs from "../../hocs/with-tabs/with-tabs";
 import MoreLikeThisFilm from "../more-like-this-film/more-like-this-film";
+
+const TabsInMoviePage = withTabs(TabsForMoviePageScreen);
 
 const MoviePage = (props) => {
   const {films, reviews, onPlayButtonClick, onListButtonClick, onAddReviewButtonClick, onLogoLinkClick, onFilmCardClick} = props;
@@ -49,13 +52,13 @@ const MoviePage = (props) => {
               <div className="movie-card__buttons">
                 <button onClick={onPlayButtonClick} className="btn btn--play movie-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
+                    <use xlinkHref="#play-s"/>
                   </svg>
                   <span>Play</span>
                 </button>
                 <button onClick={onListButtonClick} className="btn btn--list movie-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
+                    <use xlinkHref="#add"/>
                   </svg>
                   <span>My list</span>
                 </button>
@@ -76,7 +79,7 @@ const MoviePage = (props) => {
                 height="327"/>
             </div>
 
-            <TabsForMoviePageScreen films={films} reviews={reviews}/>
+            <TabsInMoviePage films={films} reviews={reviews}/>
 
           </div>
         </div>

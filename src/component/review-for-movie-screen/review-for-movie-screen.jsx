@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import propsForFilms from "../../mocks/prop-types-for-films";
 import ReviewForm from "../review-form/review-form";
+import withReviewForm from "../../hocs/with-review-form/with-review-form";
+
+const Review = withReviewForm(ReviewForm);
 
 const ReviewForMovie = (props) => {
   const {onLogoLinkClick, films} = props;
@@ -52,7 +55,7 @@ const ReviewForMovie = (props) => {
       </div>
 
       <div className="add-review">
-        <ReviewForm/>
+        <Review/>
       </div>
 
     </section>
