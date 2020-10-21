@@ -1,33 +1,29 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import SmallMovieCard from "../small-movie-card/small-movie-card";
 import propsForFilms from "../../mocks/prop-types-for-films";
 
-class MoreLikeThisFilm extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {filmActive: ``};
-  }
-
-  render() {
-    const {films, onFilmCardClick} = this.props;
-    const myFilm = films.slice(0, 4);
-    return (
-      <div className="catalog__movies-list">
-        {myFilm.map((film) => <SmallMovieCard onFilmCardClick={()=>{
-          this.setState({filmActive: film.nameFilm});
-          onFilmCardClick();
+const MoreLikeThisFilm = (props) =>{
+  const {filmActive, films, onFilmCardClick, handleMouseEnterFilm, handleMouseOverFilm} = props;
+  const myFilm = films.slice(0, 4);
+  return (
+    <div className="catalog__movies-list">
+      {myFilm.map((film) => <SmallMovieCard filmActive={filmActive} onFilmCardClick={onFilmCardClick}
+        key={film.nameFilm} film={film} onMouseEnterCard={()=>{
+          handleMouseEnterFilm(film);
+          props.handleMouseEnterFilm(film);
         }}
-        key={film.nameFilm} film={film} onMouseOverCard={()=>{}} onMouseEnterCard={()=>{}}/>)}
-      </div>
-    );
-  }
-}
+        onMouseOverCard={handleMouseOverFilm}/>)}
+    </div>
+  );
+};
 
 MoreLikeThisFilm.propTypes = {
   films: PropTypes.arrayOf(propsForFilms).isRequired,
   onFilmCardClick: PropTypes.func.isRequired,
+  filmActive: PropTypes.string.isRequired,
+  handleMouseEnterFilm: PropTypes.func.isRequired,
+  handleMouseOverFilm: PropTypes.func.isRequired
 };
 
 export default MoreLikeThisFilm;
-

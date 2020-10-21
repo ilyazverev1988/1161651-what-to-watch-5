@@ -1,8 +1,32 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import SmallMovieCard from "../small-movie-card/small-movie-card";
 import propsForFilms from "../../mocks/prop-types-for-films";
 
+const ListFilm = (props) => {
+  const {filmActive, films, onFilmCardClick, handleMouseEnterFilm, handleMouseOverFilm} = props;
+
+  return (
+    <div className="catalog__movies-list">
+      {films.map((film) => <SmallMovieCard key={film.nameFilm} filmActive={filmActive} film={film}
+        onFilmCardClick={onFilmCardClick} onMouseEnterCard={()=>{
+          handleMouseEnterFilm(film);
+          props.handleMouseEnterFilm(film);
+        }} onMouseOverCard={handleMouseOverFilm}/>)}
+    </div>
+  );
+};
+
+ListFilm.propTypes = {
+  films: PropTypes.arrayOf(propsForFilms).isRequired,
+  onFilmCardClick: PropTypes.func.isRequired,
+  filmActive: PropTypes.string.isRequired,
+  handleMouseEnterFilm: PropTypes.func.isRequired,
+  handleMouseOverFilm: PropTypes.func.isRequired
+};
+
+export default ListFilm;
+/*
 class ListFilm extends PureComponent {
   constructor(props) {
     super(props);
@@ -39,3 +63,4 @@ ListFilm.propTypes = {
 };
 
 export default ListFilm;
+*/

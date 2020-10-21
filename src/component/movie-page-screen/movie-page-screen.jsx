@@ -5,7 +5,9 @@ import propsForReviews from "../../mocks/prop-types-for-reviws";
 import TabsForMoviePageScreen from "../tabs-for-movie-page-screen/tabs-for-movie-page-screen";
 import withTabs from "../../hocs/with-tabs/with-tabs";
 import MoreLikeThisFilm from "../more-like-this-film/more-like-this-film";
+import withActiveItem from "../../hocs/with-active-item/with-active-item";
 
+const MoreLikeFilms = withActiveItem(MoreLikeThisFilm);
 const TabsInMoviePage = withTabs(TabsForMoviePageScreen);
 
 const MoviePage = (props) => {
@@ -87,7 +89,7 @@ const MoviePage = (props) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MoreLikeThisFilm films={filmsByGenre} onFilmCardClick={onFilmCardClick}/>
+          <MoreLikeFilms films={filmsByGenre} onFilmCardClick={onFilmCardClick}/>
         </section>
 
         <footer className="page-footer">

@@ -6,19 +6,30 @@ const withActiveItem = (Component)=>{
   class WithActiveItem extends PureComponent {
     constructor(props) {
       super(props);
-      this.state = {filmActive: ``};
-      this._handleClickFilm = this._handleClickFilm.bind(this);
+      this.state = {
+        filmActive: ``,
+        timerId: null
+      };
+
+      this._handleMouseEnterFilm = this._handleMouseEnterFilm.bind(this);
+      this._handleMouseOverFilm = this._handleMouseOverFilm.bind(this);
     }
 
-    _handleClickFilm(film) {
-      this.setState({filmActive: `test`});
+    _handleMouseEnterFilm(film) {
+      const timerId = setTimeout(() => this.setState({filmActive: film.nameFilm}), 1000);
+      this.setState({timerId});
+    }
+
+    _handleMouseOverFilm() {
+      this.setState({filmActive: ``});
+      clearTimeout(this.state.timerId);
     }
 
     render() {
       const {filmActive} = this.state;
       const {films, onFilmCardClick} = this.props;
       return (
-        <Component {...this.props} filmActive={filmActive} films={films} onFilmCardClick={onFilmCardClick} handleClickFilm={this._handleClickFilm}/>
+        <Component {...this.props} filmActive={filmActive} films={films} onFilmCardClick={onFilmCardClick} handleMouseEnterFilm={this._handleMouseEnterFilm} handleMouseOverFilm={this._handleMouseOverFilm}/>
       );
     }
   }

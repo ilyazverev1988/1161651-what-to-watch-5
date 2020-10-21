@@ -6,6 +6,9 @@ import propsForFilms from "../../mocks/prop-types-for-films";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 import ButtonShowMore from "../button-show-more/button-show-more";
+import withActiveItem from "../../hocs/with-active-item/with-active-item";
+
+const ListFilmWithActive = withActiveItem(ListFilm);
 
 const Mainscreen = (props) => {
   const {films, onListButtonClick, onFilmCardClick, onPlayButtonClick, listOfCardsFilm, cardsOfShownFilms} = props;
@@ -74,7 +77,7 @@ const Mainscreen = (props) => {
 
           <ListOfGenres/>
 
-          <ListFilm films={listOfCardsFilm.slice(0, cardsOfShownFilms)} onFilmCardClick={onFilmCardClick}/>
+          <ListFilmWithActive films={listOfCardsFilm.slice(0, cardsOfShownFilms)} onFilmCardClick={onFilmCardClick}/>
 
           { listOfCardsFilm.length > cardsOfShownFilms ? <ButtonShowMore/> : null }
 
