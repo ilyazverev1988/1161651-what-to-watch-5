@@ -8,7 +8,6 @@ const withActiveItem = (Component)=>{
       super(props);
       this.state = {
         filmActive: ``,
-        timerId: null
       };
 
       this._handleMouseEnterFilm = this._handleMouseEnterFilm.bind(this);
@@ -16,13 +15,12 @@ const withActiveItem = (Component)=>{
     }
 
     _handleMouseEnterFilm(film) {
-      const timerId = setTimeout(() => this.setState({filmActive: film.nameFilm}), 1000);
-      this.setState({timerId});
+      this.timerId = setTimeout(() => this.setState({filmActive: film.id}), 1000);
     }
 
     _handleMouseOverFilm() {
       this.setState({filmActive: ``});
-      clearTimeout(this.state.timerId);
+      clearTimeout(this.timerId);
     }
 
     render() {

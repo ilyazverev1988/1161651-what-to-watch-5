@@ -8,7 +8,7 @@ const MoreLikeThisFilm = (props) =>{
   const myFilm = films.slice(0, 4);
   return (
     <div className="catalog__movies-list">
-      {myFilm.map((film) => <SmallMovieCard filmActive={filmActive} onFilmCardClick={onFilmCardClick}
+      {myFilm.map((film) => <SmallMovieCard isActive={filmActive === film.id} onFilmCardClick={onFilmCardClick}
         key={film.nameFilm} film={film} onMouseEnterCard={()=>{
           handleMouseEnterFilm(film);
           props.handleMouseEnterFilm(film);
@@ -21,7 +21,7 @@ const MoreLikeThisFilm = (props) =>{
 MoreLikeThisFilm.propTypes = {
   films: PropTypes.arrayOf(propsForFilms).isRequired,
   onFilmCardClick: PropTypes.func.isRequired,
-  filmActive: PropTypes.string.isRequired,
+  filmActive: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   handleMouseEnterFilm: PropTypes.func.isRequired,
   handleMouseOverFilm: PropTypes.func.isRequired
 };
