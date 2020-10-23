@@ -1,40 +1,103 @@
-import React from "react";
+import React, {PureComponent, createRef, Fragment} from "react";
 
-const Player = () => {
-  return (
-    <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+export default class Player extends PureComponent {
+  constructor(props) {
+    super(props);
+    this._videoRef = createRef();
+    this.state = {
+      playFilm: true,
+      fullScreenFilm: false
+    };
+    this._handleClickPause = this._handleClickPause.bind(this);
+    this._handleClickFullscreen = this._handleClickFullscreen.bind(this);
+  }
 
-      <button type="button" className="player__exit">Exit</button>
+  _handleClickPause(evt) {
+    evt.preventDefault();
+    const {playFilm} = this.state;
+    if (playFilm) {
+      this.setState({playFilm: false});
+    } else {
+      this.setState({playFilm: true});
+    }
+  }
 
-      <div className="player__controls">
-        <div className="player__controls-row">
-          <div className="player__time">
-            <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
+  _handleClickFullscreen(evt) {
+    evt.preventDefault();
+    const {fullScreenFilm} = this.state;
+    if (fullScreenFilm) {
+      this.setState({fullScreenFilm: false});
+    } else {
+      this.setState({fullScreenFilm: true});
+    }
+  }
+
+  componentDidMount() {
+    const {film} = this.props;
+    const {playFilm, fullScreenFilm} = this.state;
+    const {linkFullVideo} = film;
+    const video = this._videoRef.current;
+    video.src = linkFullVideo;
+    video.play();
+  }
+
+  componentDidUpdate() {
+    const video = this._videoRef.current;
+    const {playFilm, fullscreenFilm} = this.state;
+    playFilm ? video.play() : video.pause();
+    if (fullscreenFilm) {
+      video.requestFullscreen();
+    }
+  }
+
+  render() {
+    const {playFilm, fullscreenFilm} = this.state;
+    return (
+      <div className="player">
+        <video ref={this._videoRef} className="player__video" poster="img/player-poster.jpg"/>
+
+        <button type="button" className="player__exit">Exit</button>
+
+        <div className="player__controls">
+          <div className="player__controls-row">
+            <div className="player__time">
+              <progress className="player__progress" value="30" max="100"></progress>
+              <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
+            </div>
+            <div className="player__time-value">1:30:29</div>
           </div>
-          <div className="player__time-value">1:30:29</div>
-        </div>
 
-        <div className="player__controls-row">
-          <button type="button" className="player__play">
-            <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref="#play-s"></use>
-            </svg>
-            <span>Play</span>
-          </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__controls-row">
+            <button onClick={this._handleClickPause} type="button" className="player__play">
+              {!playFilm && (
+                <Fragment>
+                  <svg viewBox="0 0 19 19" width="19" height="19">
+                    <use xlinkHref="#play-s"></use>
+                  </svg>
+                  <span>Play</span>
+                </Fragment>)}
+              {playFilm && (
+                <Fragment>
+                  <svg viewBox="0 0 14 21" width="14" height="21">
+                    <use xlinkHref="#pause"></use>
+                  </svg>
+                  <span>Pause</span>
+                  <span>Play</span>
+                </Fragment>)}
+            </button>
+            <div className="player__name">Transpotting</div>
 
-          <button type="button" className="player__full-screen">
-            <svg viewBox="0 0 27 27" width="27" height="27">
-              <use xlinkHref="#full-screen"></use>
-            </svg>
-            <span>Full screen</span>
-          </button>
+            <button onClick={this._handleClickFullscreen} type="button" className="player__full-screen">
+              <svg viewBox="0 0 27 27" width="27" height="27">
+                <use xlinkHref="#full-screen"></use>
+              </svg>
+              <span>Full screen</span>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
-export default Player;
+

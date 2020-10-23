@@ -47,7 +47,13 @@ const App = (props) => {
           render={({history})=>
             (<ReviewForMovie films={films} onLogoLinkClick={() => history.push(`/`)}/>)}
         />
-        <Route exact path="/player/:id" component={Player}/>
+        <Route exact path="/player/:id"
+          render={({history}) =>
+            (<Player film={films[0]}
+              onExitButtonClick={() => history.push(`/`)}/>
+            )}
+        />
+
       </Switch>
     </BrowserRouter>
   );
