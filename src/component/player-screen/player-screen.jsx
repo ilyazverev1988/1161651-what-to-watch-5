@@ -6,7 +6,6 @@ export default class Player extends PureComponent {
     this._videoRef = createRef();
     this.state = {
       playFilm: true,
-      fullScreenFilm: false
     };
     this._handleClickPause = this._handleClickPause.bind(this);
     this._handleClickFullscreen = this._handleClickFullscreen.bind(this);
@@ -24,17 +23,12 @@ export default class Player extends PureComponent {
 
   _handleClickFullscreen(evt) {
     evt.preventDefault();
-    const {fullScreenFilm} = this.state;
-    if (fullScreenFilm) {
-      this.setState({fullScreenFilm: false});
-    } else {
-      this.setState({fullScreenFilm: true});
-    }
+    const video = this._videoRef.current;
+    video.requestFullscreen();
   }
 
   componentDidMount() {
     const {film} = this.props;
-    const {playFilm, fullScreenFilm} = this.state;
     const {linkFullVideo} = film;
     const video = this._videoRef.current;
     video.src = linkFullVideo;
@@ -43,15 +37,19 @@ export default class Player extends PureComponent {
 
   componentDidUpdate() {
     const video = this._videoRef.current;
-    const {playFilm, fullscreenFilm} = this.state;
+    const {playFilm} = this.state;
     playFilm ? video.play() : video.pause();
-    if (fullscreenFilm) {
-      video.requestFullscreen();
-    }
+    video.addEventListener(`play`, () => {
+      this.setState({playFilm: true});
+    });
+    video.addEventListener(`pause`, () => {
+      this.setState({playFilm: false});
+    });
   }
 
   render() {
-    const {playFilm, fullscreenFilm} = this.state;
+    const {playFilm} = this.state;
+    const {film} = this.props;
     return (
       <div className="player">
         <video ref={this._videoRef} className="player__video" poster="img/player-poster.jpg"/>
@@ -64,7 +62,7 @@ export default class Player extends PureComponent {
               <progress className="player__progress" value="30" max="100"></progress>
               <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
             </div>
-            <div className="player__time-value">1:30:29</div>
+            <div ref={this._timeRef} className="player__time-value">1:30:29</div>
           </div>
 
           <div className="player__controls-row">
@@ -85,7 +83,7 @@ export default class Player extends PureComponent {
                   <span>Play</span>
                 </Fragment>)}
             </button>
-            <div className="player__name">Transpotting</div>
+            <div className="player__name">{film.nameFilm}</div>
 
             <button onClick={this._handleClickFullscreen} type="button" className="player__full-screen">
               <svg viewBox="0 0 27 27" width="27" height="27">
