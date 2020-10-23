@@ -26,7 +26,7 @@ export default class VideoPlayer extends PureComponent {
   componentDidUpdate() {
     const video = this._videoRef.current;
 
-    if (this.props.filmActive !== this.props.nameFilm) {
+    if (!this.props.isActive) {
       const {linkPreviewVideo} = this.props;
       video.src = linkPreviewVideo;
     } else {
@@ -36,7 +36,7 @@ export default class VideoPlayer extends PureComponent {
 }
 
 VideoPlayer.propTypes = {
-  filmActive: PropTypes.string,
+  isActive: PropTypes.bool.isRequired,
   linkPreviewVideo: PropTypes.string.isRequired,
   preview: PropTypes.string.isRequired,
   volume: PropTypes.bool.isRequired,

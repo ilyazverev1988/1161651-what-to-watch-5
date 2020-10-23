@@ -9,6 +9,9 @@ import ReviewForMovie from "../review-for-movie-screen/review-for-movie-screen";
 import Player from "../player-screen/player-screen";
 import propsForFilms from "../../mocks/prop-types-for-films";
 import reviews from "../../mocks/reviews";
+import withActiveItem from "../../hocs/with-active-item/with-active-item";
+
+const MyListWithActiveState = withActiveItem(MyList);
 
 const App = (props) => {
 
@@ -27,7 +30,7 @@ const App = (props) => {
         <Route exact path="/login" component={AuthScreen}/>
         <Route exact path="/mylist"
           render={({history}) =>
-            (<MyList films={films}
+            (<MyListWithActiveState films={films}
               onLogoLinkClick={() => history.push(`/`)}
               onFilmCardClick={() => history.push(`/films/2`)}/>)}
         />
