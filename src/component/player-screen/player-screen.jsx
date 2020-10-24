@@ -1,4 +1,5 @@
 import React, {PureComponent, createRef, Fragment} from "react";
+import {returnElapsedTime} from "../../utils";
 
 export default class Player extends PureComponent {
   constructor(props) {
@@ -6,25 +7,40 @@ export default class Player extends PureComponent {
     this._videoRef = createRef();
     this.state = {
       playFilm: true,
+      progressVideo: null,
+      timeLeftFilm: null,
     };
-    this._handleClickPause = this._handleClickPause.bind(this);
-    this._handleClickFullscreen = this._handleClickFullscreen.bind(this);
+
+    this._handleClickFullScreen = this._handleClickFullScreen.bind(this);
+    this._handleTimeUpdate = this._handleTimeUpdate.bind(this);
+    this._handlePlayFilm = this._handlePlayFilm.bind(this);
+    this._handlePauseFilm = this._handlePauseFilm.bind(this);
   }
 
-  _handleClickPause(evt) {
-    evt.preventDefault();
-    const {playFilm} = this.state;
-    if (playFilm) {
-      this.setState({playFilm: false});
-    } else {
-      this.setState({playFilm: true});
-    }
-  }
-
-  _handleClickFullscreen(evt) {
+  _handleClickFullScreen(evt) {
     evt.preventDefault();
     const video = this._videoRef.current;
     video.requestFullscreen();
+  }
+
+  _handleTimeUpdate() {
+    const video = this._videoRef.current;
+    this.setState({
+      progressVideo: video.currentTime * 100 / video.duration,
+      timeLeftFilm: video.duration - video.currentTime,
+    });
+  }
+
+  _handlePlayFilm() {
+    this.setState({
+      playFilm: true
+    });
+  }
+
+  _handlePauseFilm() {
+    this.setState({
+      playFilm: false
+    });
   }
 
   componentDidMount() {
@@ -39,34 +55,34 @@ export default class Player extends PureComponent {
     const video = this._videoRef.current;
     const {playFilm} = this.state;
     playFilm ? video.play() : video.pause();
-    video.addEventListener(`play`, () => {
-      this.setState({playFilm: true});
-    });
-    video.addEventListener(`pause`, () => {
-      this.setState({playFilm: false});
-    });
   }
 
   render() {
-    const {playFilm} = this.state;
+    const {playFilm, progressVideo, timeLeftFilm} = this.state;
     const {film} = this.props;
+
     return (
       <div className="player">
-        <video ref={this._videoRef} className="player__video" poster="img/player-poster.jpg"/>
+        <video ref={this._videoRef} onTimeUpdate={this._handleTimeUpdate}
+          onPause={this._handlePauseFilm}
+          onPlay={this._handlePlayFilm}
+          className="player__video"
+          poster={film.poster}/>
 
         <button type="button" className="player__exit">Exit</button>
 
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
-              <progress className="player__progress" value="30" max="100"></progress>
-              <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
+              <progress className="player__progress" value={`${progressVideo}`} max="100"/>
+              <div className="player__toggler" style={{left: `${progressVideo}%`}}>Toggler</div>
             </div>
-            <div ref={this._timeRef} className="player__time-value">1:30:29</div>
+            <div ref={this._timeRef} className="player__time-value">{returnElapsedTime(timeLeftFilm)}</div>
           </div>
 
           <div className="player__controls-row">
-            <button onClick={this._handleClickPause} type="button" className="player__play">
+            <button onClick={playFilm ? this._handlePauseFilm : this._handlePlayFilm} type="button"
+              className="player__play">
               {!playFilm && (
                 <Fragment>
                   <svg viewBox="0 0 19 19" width="19" height="19">
@@ -85,7 +101,7 @@ export default class Player extends PureComponent {
             </button>
             <div className="player__name">{film.nameFilm}</div>
 
-            <button onClick={this._handleClickFullscreen} type="button" className="player__full-screen">
+            <button onClick={this._handleClickFullScreen} type="button" className="player__full-screen">
               <svg viewBox="0 0 27 27" width="27" height="27">
                 <use xlinkHref="#full-screen"></use>
               </svg>
