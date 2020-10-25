@@ -14,7 +14,7 @@ export default [
     producer: `Wes Andreson`,
     duration: `1h 39m`,
     linkPreviewVideo: `https://cdn.videvo.net/videvo_files/converted/2018_07/preview/180607_A_064.mp429860.webm`,
-    linkFullVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4 `
+    linkFullVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1f/Fai_Ming_Estate_roadblock_20200126.webm/Fai_Ming_Estate_roadblock_20200126.webm.360p.vp9.webm`
   },
   {
     id: 2,
