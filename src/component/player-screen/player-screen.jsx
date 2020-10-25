@@ -51,10 +51,16 @@ export default class Player extends PureComponent {
     video.play();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevState) {
     const video = this._videoRef.current;
     const {playFilm} = this.state;
-    playFilm ? video.play() : video.pause();
+    if (this.state.playFilm !== prevState.playFilm) {
+      if (playFilm) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
   }
 
   render() {
@@ -64,10 +70,10 @@ export default class Player extends PureComponent {
     return (
       <div className="player">
         <video ref={this._videoRef} onTimeUpdate={this._handleTimeUpdate}
-          onPause={this._handlePauseFilm}
-          onPlay={this._handlePlayFilm}
-          className="player__video"
-          poster={film.poster}/>
+               onPause={this._handlePauseFilm}
+               onPlay={this._handlePlayFilm}
+               className="player__video"
+               poster={film.poster}/>
 
         <button type="button" className="player__exit">Exit</button>
 
@@ -82,7 +88,7 @@ export default class Player extends PureComponent {
 
           <div className="player__controls-row">
             <button onClick={playFilm ? this._handlePauseFilm : this._handlePlayFilm} type="button"
-              className="player__play">
+                    className="player__play">
               {!playFilm && (
                 <Fragment>
                   <svg viewBox="0 0 19 19" width="19" height="19">
