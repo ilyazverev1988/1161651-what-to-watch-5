@@ -10,7 +10,9 @@ import Player from "../player-screen/player-screen";
 import propsForFilms from "../../mocks/prop-types-for-films";
 import reviews from "../../mocks/reviews";
 import withActiveItem from "../../hocs/with-active-item/with-active-item";
+import withPlayerScreen from "../../hocs/with-player-screen/with-player-screen";
 
+const PlayerWithActiveState = withPlayerScreen(Player);
 const MyListWithActiveState = withActiveItem(MyList);
 
 const App = (props) => {
@@ -49,8 +51,8 @@ const App = (props) => {
         />
         <Route exact path="/player/:id"
           render={({history}) =>
-            (<Player film={films[0]}
-              onExitButtonClick={() => history.push(`/`)}/>
+            (<PlayerWithActiveState film={films[0]}
+              onExitButtonClick={() => history.goBack()}/>
             )}
         />
 
