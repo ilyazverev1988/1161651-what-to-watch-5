@@ -12,7 +12,7 @@ export const getUniqueGenresFilms = (films) => {
   }
   return Array.from(new Set(allGenres.slice(0, 10)));
 };
-
+/*
 export const getFilmsByGenre = (filmsForFilter, genre) => {
   if (genre === ALL_GENRE) {
     return filmsForFilter;
@@ -20,7 +20,7 @@ export const getFilmsByGenre = (filmsForFilter, genre) => {
     return filmsForFilter.filter((film) => film.genre === genre);
   }
 };
-
+*/
 export const returnElapsedTime = (elapsedTimeFilm) => {
   const addZeroForTime = (period) => {
     return (period < 10) ? `0` + period : period;

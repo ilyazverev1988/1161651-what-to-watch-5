@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 import propsForFilms from "../../mocks/prop-types-for-films";
 import constant from "../../const";
+import {getFilmsByGenre} from "../../store/selectors";
 const {BASE_NUMBER_OF_CARDS} = constant;
 
 const ButtonShowMore = (props) => {
@@ -13,7 +14,7 @@ const ButtonShowMore = (props) => {
     <div className="catalog__more">
       <button onClick={(evt) => {
         evt.preventDefault();
-        changeNumberShownCards(listOfCardsFilm, cardsOfShownFilms);
+        changeNumberShownCards(cardsOfShownFilms);
       }} className="catalog__button" type="button">Show more
       </button>
     </div>
@@ -21,19 +22,18 @@ const ButtonShowMore = (props) => {
 };
 
 ButtonShowMore.propTypes = {
-  listOfCardsFilm: PropTypes.arrayOf(propsForFilms).isRequired,
+  //listOfCardsFilm: PropTypes.arrayOf(propsForFilms).isRequired,
   cardsOfShownFilms: PropTypes.number.isRequired,
   changeNumberShownCards: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  listOfCardsFilm: state.listOfCardsFilm,
-  cardsOfShownFilms: state.cardsOfShownFilms
+const mapStateToProps = ({FILM}) => ({
+  //listOfCardsFilm: getFilmsByGenre(FILM),
+  cardsOfShownFilms: FILM.cardsOfShownFilms
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeNumberShownCards(listOfCardsFilm, cardsOfShownFilms) {
-
+  changeNumberShownCards(cardsOfShownFilms) {
     dispatch(ActionCreator.changeNumberShownCards(cardsOfShownFilms + BASE_NUMBER_OF_CARDS));
   }
 });

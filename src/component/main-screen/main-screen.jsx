@@ -4,9 +4,9 @@ import ListFilm from "../list-films/list-film";
 import ListOfGenres from "../list-of-genres/list-of-genres";
 import propsForFilms from "../../mocks/prop-types-for-films";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../store/action";
 import ButtonShowMore from "../button-show-more/button-show-more";
 import withActiveItem from "../../hocs/with-active-item/with-active-item";
+import {getFilmsByGenre} from "../../store/selectors";
 
 const ListFilmWithActive = withActiveItem(ListFilm);
 
@@ -110,16 +110,10 @@ Mainscreen.propTypes = {
   onPlayButtonClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  listOfCardsFilm: state. listOfCardsFilm,
-  cardsOfShownFilms: state.cardsOfShownFilms
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  changeFilmCards(filter) {
-    dispatch(ActionCreator.changeFilmCards(filter));
-  },
+const mapStateToProps = ({FILM}) => ({
+  listOfCardsFilm: getFilmsByGenre(FILM),
+  cardsOfShownFilms: FILM.cardsOfShownFilms
 });
 
 export {Mainscreen};
-export default connect(mapStateToProps, mapDispatchToProps)(Mainscreen);
+export default connect(mapStateToProps, null)(Mainscreen);
