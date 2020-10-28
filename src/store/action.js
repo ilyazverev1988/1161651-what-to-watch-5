@@ -1,7 +1,9 @@
 export const ActionType = {
   CHANGE_FILTER_GENRE_FILMS: `CHANGE_FILTER_GENRE_FILMS`,
   CREAT_LIST_FILMS_OF_GENRE: `GET_LIST_FILMS_OF_GENRE`,
-  CHANGE_NUMBER_SHOWN_FILMS: `CHANGE_NUMBER_SHOWN_FILMS`
+  CHANGE_NUMBER_SHOWN_FILMS: `CHANGE_NUMBER_SHOWN_FILMS`,
+  LOAD_FILMS: `LOAD_FILMS`,
+  REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
 };
 
 export const ActionCreator = {
@@ -16,7 +18,15 @@ export const ActionCreator = {
   changeNumberShownCards: (numberShownFilms) => ({
     type: ActionType.CHANGE_NUMBER_SHOWN_FILMS,
     payload: numberShownFilms
-  })
+  }),
+  loadFilms: (films) => ({
+    type: ActionType.LOAD_FILMS,
+    payload: films,
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
 };
 
 

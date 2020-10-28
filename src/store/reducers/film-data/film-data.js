@@ -1,19 +1,18 @@
-import {extend} from "../../utils";
-import {ActionType} from "../action";
-import films from "../../mocks/films";
+import {extend} from "../../../utils";
+import {ActionType} from "../../action";
+import films from "../../../mocks/films";
 
 const initialState = {
-  films,
+  films: [],
 };
 
 const filmData = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_FILMS:
       return extend(state, {
-        questions: action.payload,
+        films: action.payload,
       });
   }
-
   return state;
 };
 

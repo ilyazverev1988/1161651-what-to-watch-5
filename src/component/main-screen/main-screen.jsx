@@ -15,6 +15,7 @@ const Mainscreen = (props) => {
   const {nameFilm, genre, releaseYear, filmCover} = films[0];
   return (
     <React.Fragment>
+      { films.length = 0 ? <p>LOADING...</p> : null }
       <section className="movie-card">
         <div className="movie-card__bg">
           <img src={filmCover} alt={nameFilm}/>
@@ -110,7 +111,8 @@ Mainscreen.propTypes = {
   onPlayButtonClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({FILM}) => ({
+const mapStateToProps = ({FILM, DATA}) => ({
+  films: DATA.films,
   listOfCardsFilm: getFilmsByGenre(FILM),
   cardsOfShownFilms: FILM.cardsOfShownFilms
 });

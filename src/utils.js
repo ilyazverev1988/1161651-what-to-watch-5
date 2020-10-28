@@ -1,26 +1,7 @@
-import constant from "./const";
-const {ALL_GENRE} = constant;
-
 export const extend = (a, b) => {
   return Object.assign({}, a, b);
 };
 
-export const getUniqueGenresFilms = (films) => {
-  let allGenres = [ALL_GENRE];
-  for (let film of films) {
-    allGenres.push((film.genre));
-  }
-  return Array.from(new Set(allGenres.slice(0, 10)));
-};
-/*
-export const getFilmsByGenre = (filmsForFilter, genre) => {
-  if (genre === ALL_GENRE) {
-    return filmsForFilter;
-  } else {
-    return filmsForFilter.filter((film) => film.genre === genre);
-  }
-};
-*/
 export const returnElapsedTime = (elapsedTimeFilm) => {
   const addZeroForTime = (period) => {
     return (period < 10) ? `0` + period : period;
@@ -29,4 +10,30 @@ export const returnElapsedTime = (elapsedTimeFilm) => {
   let minutes = addZeroForTime(Math.floor((elapsedTimeFilm - (hours * 3600)) / 60));
   let seconds = addZeroForTime(Math.round(elapsedTimeFilm - (hours * 3600) - (minutes * 60)));
   return `${hours}:${minutes}:${seconds}`;
+};
+
+
+export const adaptFilmToClient = (film) => {
+  const adaptedFilm = {
+    backgroundColor: film.background_color,
+    id: film.id,
+    preview: film.preview_image,
+    nameFilm: film.name,
+    poster: film.poster_image,
+    filmCover: film.background_image,
+    genre: film.genre,
+    releaseYear: film.released,
+    descriptionFilm: film.description,
+    commonScore: film.rating,
+    numberOfVotes: film.scores_count,
+    cast: film.starring,
+    producer: film.director,
+    isFavorite: film.is_favorite,
+    runTime: film.run_time,
+    //duration: `1h 39m`,
+    linkPreviewVideo: film.preview_video_link,
+    linkFullVideo: film.video_link
+  };
+
+  return adaptedFilm;
 };

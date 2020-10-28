@@ -1,13 +1,10 @@
-import {extend, getUniqueGenresFilms} from "../../utils";
-import {ActionType} from "../action";
-import films from "../../mocks/films";
-import constant from "../../const";
+import {extend} from "../../../utils";
+import {ActionType} from "../../action";
+import constant from "../../../const";
 const {ALL_GENRE, BASE_NUMBER_OF_CARDS} = constant;
 
 const initialState = {
   activeGenre: ALL_GENRE,
-  // genresOfFilm: getUniqueGenresFilms(films),
-  // listOfCardsFilm: films,
   cardsOfShownFilms: BASE_NUMBER_OF_CARDS
 };
 

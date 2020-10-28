@@ -2,13 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
-import propsForFilms from "../../mocks/prop-types-for-films";
 import constant from "../../const";
-import {getFilmsByGenre} from "../../store/selectors";
 const {BASE_NUMBER_OF_CARDS} = constant;
 
 const ButtonShowMore = (props) => {
-  const {listOfCardsFilm, cardsOfShownFilms, changeNumberShownCards} = props;
+  const {cardsOfShownFilms, changeNumberShownCards} = props;
 
   return (
     <div className="catalog__more">
@@ -22,13 +20,11 @@ const ButtonShowMore = (props) => {
 };
 
 ButtonShowMore.propTypes = {
-  //listOfCardsFilm: PropTypes.arrayOf(propsForFilms).isRequired,
   cardsOfShownFilms: PropTypes.number.isRequired,
   changeNumberShownCards: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({FILM}) => ({
-  //listOfCardsFilm: getFilmsByGenre(FILM),
   cardsOfShownFilms: FILM.cardsOfShownFilms
 });
 

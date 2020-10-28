@@ -5,6 +5,7 @@ import films from "../mocks/films";
 const {ALL_GENRE} = constant;
 
 const genreSelector = (state) => state.activeGenre;
+const filmsSelector = (state) => state.films;
 
 export const getFilmsByGenre = createSelector([genreSelector], (genre) => {
   if (genre === ALL_GENRE) {
@@ -15,4 +16,11 @@ export const getFilmsByGenre = createSelector([genreSelector], (genre) => {
 }
 );
 
+export const getUniqueGenresFilms = createSelector([filmsSelector], (filmsForGenres) => {
+  let allGenres = [ALL_GENRE];
+  for (let film of filmsForGenres) {
+    allGenres.push((film.genre));
+  }
+  return Array.from(new Set(allGenres.slice(0, 10)));
+});
 

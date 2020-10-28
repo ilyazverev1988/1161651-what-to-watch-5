@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Suspense}  from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Mainscreen from "../main-screen/main-screen";
@@ -23,8 +23,7 @@ const App = (props) => {
       <Switch>
         <Route exact path="/"
           render={({history}) =>
-            (<Mainscreen films={films}
-              onListButtonClick={() => history.push(`/mylist`)}
+            (<Mainscreen onListButtonClick={() => history.push(`/mylist`)}
               onFilmCardClick={() => history.push(`/films/2`)}
               onPlayButtonClick={() => history.push(`/player/:id`)}/>
             )}
@@ -62,7 +61,7 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  films: PropTypes.arrayOf(propsForFilms).isRequired,
+  films: PropTypes.arrayOf(propsForFilms),
 };
 
 export default App;
