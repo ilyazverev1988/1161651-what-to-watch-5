@@ -6,7 +6,6 @@ import {createAPI} from "./services/api";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from "react-redux";
 import App from "./component/app/app";
-import films from "./mocks/films";
 import reviews from "./mocks/reviews";
 import rootReducer from "./store/reducers/root-reducer";
 import {fetchFilmList} from "./store/reducers/api-action";

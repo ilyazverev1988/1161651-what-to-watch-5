@@ -1,4 +1,4 @@
-import React, {Suspense}  from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Mainscreen from "../main-screen/main-screen";
@@ -11,6 +11,7 @@ import propsForFilms from "../../mocks/prop-types-for-films";
 import reviews from "../../mocks/reviews";
 import withActiveItem from "../../hocs/with-active-item/with-active-item";
 import withPlayerScreen from "../../hocs/with-player-screen/with-player-screen";
+import {connect} from "react-redux";
 
 const PlayerWithActiveState = withPlayerScreen(Player);
 const MyListWithActiveState = withActiveItem(MyList);
@@ -23,7 +24,7 @@ const App = (props) => {
       <Switch>
         <Route exact path="/"
           render={({history}) =>
-            (<Mainscreen onListButtonClick={() => history.push(`/mylist`)}
+            (<Mainscreen films={films} onListButtonClick={() => history.push(`/mylist`)}
               onFilmCardClick={() => history.push(`/films/2`)}
               onPlayButtonClick={() => history.push(`/player/:id`)}/>
             )}
@@ -64,4 +65,9 @@ App.propTypes = {
   films: PropTypes.arrayOf(propsForFilms),
 };
 
-export default App;
+const mapStateToProps = ({DATA}) => ({
+  films: DATA.films,
+});
+
+export {App};
+export default connect(mapStateToProps, null)(App);

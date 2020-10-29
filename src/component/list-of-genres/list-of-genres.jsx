@@ -27,7 +27,7 @@ ListOfGenres.propTypes = {
 };
 
 const mapStateToProps = ({FILM, DATA}) => ({
-  genres: getUniqueGenresFilms(DATA),
+  genres: getUniqueGenresFilms({FILM, DATA}),
   activeGenre: FILM.activeGenre,
 });
 

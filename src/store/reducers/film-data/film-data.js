@@ -1,6 +1,5 @@
 import {extend} from "../../../utils";
 import {ActionType} from "../../action";
-import films from "../../../mocks/films";
 
 const initialState = {
   films: [],
