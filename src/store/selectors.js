@@ -1,6 +1,5 @@
 import {createSelector} from "reselect";
 import constant from "../const";
-import {connect} from "react-redux";
 const {ALL_GENRE} = constant;
 const genreSelector = (state) => state.FILM.activeGenre;
 const filmsSelector = (state) => state.DATA.films;
@@ -22,8 +21,4 @@ export const getUniqueGenresFilms = createSelector([filmsSelector], (filmsForGen
   return Array.from(new Set(allGenres.slice(0, 10)));
 });
 
-const mapStateToProps = ({DATA}) => ({
-  films: DATA.films,
-});
-connect(mapStateToProps, null);
 
