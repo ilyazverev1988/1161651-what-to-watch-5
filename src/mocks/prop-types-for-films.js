@@ -15,7 +15,7 @@ const propsForFilms = PropTypes.shape({
   cast: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   isFavorite: PropTypes.bool.isRequired,
   producer: PropTypes.string.isRequired,
-  duration: PropTypes.string,
+  duration: PropTypes.number.isRequired,
   linkPreviewVideo: PropTypes.string.isRequired,
   linkFullVideo: PropTypes.string.isRequired,
 }).isRequired;

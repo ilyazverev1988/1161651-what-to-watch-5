@@ -4,6 +4,7 @@ export const ActionType = {
   CHANGE_NUMBER_SHOWN_FILMS: `CHANGE_NUMBER_SHOWN_FILMS`,
   LOAD_FILMS: `LOAD_FILMS`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
 };
 
 export const ActionCreator = {
@@ -26,6 +27,10 @@ export const ActionCreator = {
   requireAuthorization: (status) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: status,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
   }),
 };
 
