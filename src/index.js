@@ -8,21 +8,28 @@ import {Provider} from "react-redux";
 import App from "./component/app/app";
 import reviews from "./mocks/reviews";
 import rootReducer from "./store/reducers/root-reducer";
-import {fetchFilmList} from "./store/reducers/api-action";
+import {fetchFilmList, checkAuth} from "./store/api-action";
+import {AuthorizationStatus} from "./const";
+import {redirect} from "./store/middlewares/redirect";
+import {ActionCreator} from "./store/action";
 
-
-const api = createAPI(() => store.dispatch());
+const api = createAPI(() => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)));
 
 const store = createStore(rootReducer, composeWithDevTools(
-    applyMiddleware(thunk.withExtraArgument(api))
+    applyMiddleware(thunk.withExtraArgument(api)),
+    applyMiddleware(redirect)
 )
 );
 
-store.dispatch(fetchFilmList());
-
-ReactDom.render(
-    <Provider store={store}>
-      <App reviews={reviews}/>
-    </Provider>,
-    document.querySelector(`#root`)
-);
+Promise.all([
+  store.dispatch(fetchFilmList()),
+  store.dispatch(checkAuth()),
+])
+  .then(() => {
+    ReactDom.render(
+        <Provider store={store}>
+          <App reviews={reviews}/>
+        </Provider>,
+        document.querySelector(`#root`)
+    );
+  });

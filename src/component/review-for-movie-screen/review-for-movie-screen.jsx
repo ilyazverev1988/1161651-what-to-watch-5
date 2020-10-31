@@ -8,7 +8,7 @@ const Review = withReviewForm(ReviewForm);
 
 const ReviewForMovie = (props) => {
   const {onLogoLinkClick, films} = props;
-  const {poster} = films[1];
+  const {poster} = films[0];
   return (
     <section className="movie-card movie-card--full">
       <div className="movie-card__header">

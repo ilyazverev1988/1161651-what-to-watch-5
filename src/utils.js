@@ -29,8 +29,7 @@ export const adaptFilmToClient = (film) => {
     cast: film.starring,
     producer: film.director,
     isFavorite: film.is_favorite,
-    runTime: film.run_time,
-    // duration: `1h 39m`,
+    duration: film.run_time,
     linkPreviewVideo: film.preview_video_link,
     linkFullVideo: film.video_link
   };

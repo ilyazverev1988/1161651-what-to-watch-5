@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {Switch, Route, Router as BrowserRouter} from "react-router-dom";
 import Mainscreen from "../main-screen/main-screen";
 import AuthScreen from "../auth-screen/auth-screen";
 import MyList from "../my-list-screen/my-list-screen";
@@ -12,6 +12,8 @@ import reviews from "../../mocks/reviews";
 import withActiveItem from "../../hocs/with-active-item/with-active-item";
 import withPlayerScreen from "../../hocs/with-player-screen/with-player-screen";
 import {connect} from "react-redux";
+import PrivateRoute from "../private-route/private-route";
+import browserHistory from "../../browser-history";
 
 const PlayerWithActiveState = withPlayerScreen(Player);
 const MyListWithActiveState = withActiveItem(MyList);
@@ -20,8 +22,16 @@ const App = (props) => {
 
   const {films} = props;
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
+        <Route exact
+          path="/login"
+          render={({history}) => (
+            <AuthScreen
+              onLogoLinkClick={() => history.push(`/`)}
+            />
+          )}
+        />
         <Route exact path="/"
           render={({history}) =>
             (<Mainscreen films={films} onListButtonClick={() => history.push(`/mylist`)}
@@ -29,25 +39,26 @@ const App = (props) => {
               onPlayButtonClick={() => history.push(`/player/:id`)}/>
             )}
         />
-        <Route exact path="/login" component={AuthScreen}/>
-        <Route exact path="/mylist"
-          render={({history}) =>
-            (<MyListWithActiveState films={films}
+        <PrivateRoute exact path="/mylist" render={({history}) => {
+          return (
+            <MyListWithActiveState films={films}
               onLogoLinkClick={() => history.push(`/`)}
-              onFilmCardClick={() => history.push(`/films/2`)}/>)}
+              onFilmCardClick={() => history.push(`/films/2`)}/>);
+        }}
         />
         <Route exact path="/films/:id"
-          render={({history})=>
+          render={({history}) =>
             (<MoviePage reviews={reviews} films={films}
               onPlayButtonClick={() => history.push(`/player/:id`)}
               onListButtonClick={() => history.push(`/mylist`)}
               onFilmCardClick={() => history.push(`/films/2`)}
               onLogoLinkClick={() => history.push(`/`)}
-              onAddReviewButtonClick = {()=>history.push(`/films/2/review`)}/>)}
+              onAddReviewButtonClick={() => history.push(`/films/2/review`)}/>)}
         />
-        <Route exact path="/films/:id/review"
-          render={({history})=>
-            (<ReviewForMovie films={films} onLogoLinkClick={() => history.push(`/`)}/>)}
+        <PrivateRoute exact path={`/films/:id/review`} render={({history}) => {
+          return (
+            <ReviewForMovie films={films} onLogoLinkClick={() => history.push(`/`)}/>);
+        }}
         />
         <Route exact path="/player/:id"
           render={({history}) =>
