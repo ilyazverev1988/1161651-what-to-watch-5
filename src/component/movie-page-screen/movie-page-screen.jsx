@@ -12,7 +12,8 @@ const TabsInMoviePage = withTabs(TabsForMoviePageScreen);
 
 const MoviePage = (props) => {
   const {films, reviews, onPlayButtonClick, onListButtonClick, onAddReviewButtonClick, onLogoLinkClick, onFilmCardClick} = props;
-  const {nameFilm, genre, releaseYear, filmCover, poster} = films[0];
+  const id = props.match.params.id;
+  const {nameFilm, genre, releaseYear, filmCover, poster} = films[id];
   const filmsByGenre = films.filter((film) => film.genre === genre).slice(0, 4);
   return (
     <Fragment>

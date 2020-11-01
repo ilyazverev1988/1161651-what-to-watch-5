@@ -35,7 +35,7 @@ const App = (props) => {
         <Route exact path="/"
           render={({history}) =>
             (<Mainscreen films={films} onListButtonClick={() => history.push(`/mylist`)}
-              onFilmCardClick={() => history.push(`/films/2`)}
+              //onFilmCardClick={() => history.push(`/films/3`)}
               onPlayButtonClick={() => history.push(`/player/:id`)}/>
             )}
         />
@@ -43,17 +43,18 @@ const App = (props) => {
           return (
             <MyListWithActiveState films={films}
               onLogoLinkClick={() => history.push(`/`)}
-              onFilmCardClick={() => history.push(`/films/2`)}/>);
+              onFilmCardClick={() => history.push(`/films/2`)}
+            />);
         }}
         />
-        <Route exact path="/films/:id"
-          render={({history}) =>
-            (<MoviePage reviews={reviews} films={films}
-              onPlayButtonClick={() => history.push(`/player/:id`)}
+        <Route exact path="/films/:id" location={props.location} key={props.location.key}
+          render={(props) =>
+            (<MoviePage {...props} key={props.location.key} reviews={reviews} films={films}
+              /*onPlayButtonClick={() => history.push(`/player/:id`)}
               onListButtonClick={() => history.push(`/mylist`)}
-              onFilmCardClick={() => history.push(`/films/2`)}
+              onFilmCardClick={() => history.push(`/films/1`)}
               onLogoLinkClick={() => history.push(`/`)}
-              onAddReviewButtonClick={() => history.push(`/films/2/review`)}/>)}
+              onAddReviewButtonClick={() => history.push(`/films/2/review`)}*//>)}
         />
         <PrivateRoute exact path={`/films/:id/review`} render={({history}) => {
           return (

@@ -93,7 +93,7 @@ const Mainscreen = (props) => {
               <ListOfGenres/>
 
               <ListFilmWithActive films={listOfCardsFilm.slice(0, cardsOfShownFilms)}
-                onFilmCardClick={onFilmCardClick}/>
+                /*onFilmCardClick={onFilmCardClick}*//>
 
               {listOfCardsFilm.length > cardsOfShownFilms ? <ButtonShowMore/> : null}
 
