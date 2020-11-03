@@ -7,6 +7,11 @@ export const fetchFilmList = () => (dispatch, _getState, api) => (
     .then(({data})=>dispatch(ActionCreator.loadFilms(data.map(adaptFilmToClient))))
 );
 
+export const fetchCommetsFilm = (id) => (dispatch, _getState, api) => (
+  api.get(`/comments/${id}`)
+    .then(({data})=>dispatch(ActionCreator.loadCommentsFilm(data)))
+);
+
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))

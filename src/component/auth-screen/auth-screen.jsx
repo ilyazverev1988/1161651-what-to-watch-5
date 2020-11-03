@@ -2,6 +2,7 @@ import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {login} from "../../store/api-action";
+import {Link} from "react-router-dom";
 
 class AuthScreen extends PureComponent {
   constructor(props) {
@@ -22,16 +23,15 @@ class AuthScreen extends PureComponent {
   }
 
   render() {
-    const {onLogoLinkClick} = this.props;
     return (
       <div className="user-page">
         <header className="page-header user-page__head">
           <div className="logo">
-            <a href="" onClick={onLogoLinkClick} className="logo__link">
+            <Link to={`/`} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <h1 className="page-title user-page__title">Sign in</h1>
@@ -59,11 +59,11 @@ class AuthScreen extends PureComponent {
 
         <footer className="page-footer">
           <div className="logo">
-            <a href="" onClick={onLogoLinkClick} className="logo__link logo__link--light">
+            <Link to={`/`} className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="copyright">
@@ -76,7 +76,6 @@ class AuthScreen extends PureComponent {
 }
 
 AuthScreen.propTypes = {
-  onLogoLinkClick: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 

@@ -25,15 +25,14 @@ const withActiveItem = (Component)=>{
 
     render() {
       const {filmActive} = this.state;
-      const {films, onFilmCardClick} = this.props;
+      const {films} = this.props;
       return (
-        <Component {...this.props} filmActive={filmActive} films={films} onFilmCardClick={onFilmCardClick} handleMouseEnterFilm={this._handleMouseEnterFilm} handleMouseOverFilm={this._handleMouseOverFilm}/>
+        <Component {...this.props} filmActive={filmActive} films={films} handleMouseEnterFilm={this._handleMouseEnterFilm} handleMouseOverFilm={this._handleMouseOverFilm}/>
       );
     }
   }
   WithActiveItem.propTypes = {
     films: PropTypes.arrayOf(propsForFilms).isRequired,
-    onFilmCardClick: PropTypes.func.isRequired
   };
 
   return WithActiveItem;

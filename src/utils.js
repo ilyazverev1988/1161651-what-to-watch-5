@@ -12,6 +12,29 @@ export const returnElapsedTime = (elapsedTimeFilm) => {
   return `${hours}:${minutes}:${seconds}`;
 };
 
+export const returnTimeForComment = (time) => {
+  let months = [`January`, `February`, `March`, `April`, `May`, `June`,
+    `July`, `August`, `September`, `October`, `November`, `December`];
+  let dateComment = Date.parse(time);
+  return `${months[new Date(dateComment).getMonth()]} ${new Date(dateComment).getDate()}, ${new Date(dateComment).getFullYear()}`;
+};
+
+export const returnStarringOfFilms = (actors) => {
+  return actors.join(`, `) + ` and other`;
+};
+
+export const returnTestStarringOfFilms = (actors) => {
+  return actors.join(`\n`);
+};
+
+export const returnFilmTime = (timeFilm)=> {
+  const addZeroForTime = (period) => {
+    return (period < 10) ? `0` + period : period;
+  };
+  let hours = (Math.floor(timeFilm / 60));
+  let minutes = addZeroForTime(Math.floor((timeFilm - (hours * 60))));
+  return `${hours}h ${minutes}m`;
+};
 
 export const adaptFilmToClient = (film) => {
   const adaptedFilm = {

@@ -7,11 +7,12 @@ import {connect} from "react-redux";
 import ButtonShowMore from "../button-show-more/button-show-more";
 import withActiveItem from "../../hocs/with-active-item/with-active-item";
 import {getFilmsByGenre} from "../../store/selectors";
+import {Link} from "react-router-dom";
 
 const ListFilmWithActive = withActiveItem(ListFilm);
 
 const Mainscreen = (props) => {
-  const {films, onListButtonClick, onFilmCardClick, onPlayButtonClick, listOfCardsFilm, cardsOfShownFilms} = props;
+  const {films, listOfCardsFilm, cardsOfShownFilms} = props;
   let nameFilm;
   let filmCover;
   let poster;
@@ -68,18 +69,18 @@ const Mainscreen = (props) => {
                   </p>
 
                   <div className="movie-card__buttons">
-                    <button onClick={onPlayButtonClick} className="btn btn--play movie-card__button" type="button">
+                    <Link to={`/player/1`} className="btn btn--play movie-card__button" type="button">
                       <svg viewBox="0 0 19 19" width="19" height="19">
                         <use xlinkHref="#play-s"></use>
                       </svg>
                       <span>Play</span>
-                    </button>
-                    <button onClick={onListButtonClick} className="btn btn--list movie-card__button" type="button">
+                    </Link>
+                    <Link to={`/mylist`} className="btn btn--list movie-card__button" type="button">
                       <svg viewBox="0 0 19 20" width="19" height="20">
                         <use xlinkHref="#add"></use>
                       </svg>
                       <span>My list</span>
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -92,8 +93,7 @@ const Mainscreen = (props) => {
 
               <ListOfGenres/>
 
-              <ListFilmWithActive films={listOfCardsFilm.slice(0, cardsOfShownFilms)}
-                /*onFilmCardClick={onFilmCardClick}*//>
+              <ListFilmWithActive films={listOfCardsFilm.slice(0, cardsOfShownFilms)}/>
 
               {listOfCardsFilm.length > cardsOfShownFilms ? <ButtonShowMore/> : null}
 
@@ -123,9 +123,6 @@ Mainscreen.propTypes = {
   films: PropTypes.arrayOf(propsForFilms).isRequired,
   listOfCardsFilm: PropTypes.arrayOf(propsForFilms).isRequired,
   cardsOfShownFilms: PropTypes.number.isRequired,
-  onListButtonClick: PropTypes.func.isRequired,
-  onFilmCardClick: PropTypes.func.isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({FILM, DATA}) => ({

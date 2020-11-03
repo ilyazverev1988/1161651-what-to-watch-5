@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 
 const SmallMovieCard = (props) => {
 
-  const {film, onMouseEnterCard, onMouseOverCard, onFilmCardClick, isActive} = props;
+  const {film, onMouseEnterCard, onMouseOverCard, isActive} = props;
 
   return (
     <article className="small-movie-card catalog__movies-card">
@@ -19,8 +19,7 @@ const SmallMovieCard = (props) => {
           onMouseOut={(evt) => {
             evt.preventDefault();
             onMouseOverCard(``);
-          }}
-          onClick={onFilmCardClick}>
+          }}>
           <VideoPlayer isActive={isActive} volume={true} isPlaying={false} nameFilm={film.nameFilm}
             linkPreviewVideo={film.linkPreviewVideo} preview={film.preview}/>
         </div>
@@ -35,7 +34,6 @@ const SmallMovieCard = (props) => {
 SmallMovieCard.propTypes = {
   isActive: PropTypes.bool.isRequired,
   filmActive: PropTypes.number,
-  onFilmCardClick: PropTypes.func.isRequired,
   onMouseEnterCard: PropTypes.func,
   onMouseOverCard: PropTypes.func,
   film: propsForFilms

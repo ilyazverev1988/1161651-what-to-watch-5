@@ -1,5 +1,4 @@
 import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
 import propsForFilms from "../../mocks/prop-types-for-films";
 import propsForReviews from "../../mocks/prop-types-for-reviws";
 
@@ -34,18 +33,18 @@ const withTabs = (Component) => {
 
     render() {
       const {Overview, Details, Reviews} = this.state;
-      const {films, reviews} = this.props;
+      const {film, reviews} = this.props;
       return (
         <Component {...this.props}
           Overview={Overview} Details={Details} Reviews={Reviews}
           handleClickOverview={this._handleClickOverview} handleClickDetails={this._handleClickDetails}
-          handleClickReviews={this._handleClickReviews} films={films} reviews={reviews}>
+          handleClickReviews={this._handleClickReviews} film={film} reviews={reviews}>
         </Component>
       );
     }
   }
   WithTabs.propTypes = {
-    films: PropTypes.arrayOf(propsForFilms).isRequired,
+    film: propsForFilms,
     reviews: propsForReviews,
   };
 
