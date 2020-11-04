@@ -3,6 +3,7 @@ import {ActionType} from "../../action";
 
 const initialState = {
   films: [],
+  comments: []
 };
 
 const filmData = (state = initialState, action) => {
@@ -10,6 +11,10 @@ const filmData = (state = initialState, action) => {
     case ActionType.LOAD_FILMS:
       return extend(state, {
         films: action.payload,
+      });
+    case ActionType.LOAD_COMMENTS_OF_FILM:
+      return extend(state, {
+        comments: action.payload,
       });
   }
   return state;

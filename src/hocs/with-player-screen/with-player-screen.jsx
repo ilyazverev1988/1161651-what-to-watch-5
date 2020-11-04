@@ -1,6 +1,7 @@
 import React, {createRef, PureComponent} from "react";
 import PropTypes from "prop-types";
 import propsForFilms from "../../mocks/prop-types-for-films";
+import {returnFilmForID} from "../../utils";
 
 const withPlayerScreen = (Component) => {
   class WithPlayerScreen extends PureComponent {
@@ -46,7 +47,9 @@ const withPlayerScreen = (Component) => {
     }
 
     componentDidMount() {
-      const {film} = this.props;
+      const {films} = this.props;
+      const id = this.props.match.params.id;
+      const film = returnFilmForID(id, films);
       const {linkFullVideo} = film;
       const video = this._videoRef.current;
       video.src = linkFullVideo;
@@ -67,11 +70,13 @@ const withPlayerScreen = (Component) => {
 
     render() {
       const {playFilm, progressVideo, timeLeftFilm} = this.state;
-      const {film, onExitButtonClick} = this.props;
+      const {films} = this.props;
+      const id = this.props.match.params.id;
+      const film = returnFilmForID(id, films);
 
       return (
         <Component {...this.props} playFilm={playFilm} progressVideo={progressVideo} timeLeftFilm={timeLeftFilm}
-          film={film} onExitButtonClick={onExitButtonClick} handleClickFullScreen={this._handleClickFullScreen}
+          film={film} handleClickFullScreen={this._handleClickFullScreen}
           handleTimeUpdate={this._handleTimeUpdate} handlePlayFilm={this._handlePlayFilm}
           handlePauseFilm={this._handlePauseFilm}>
           <video ref={this._videoRef} onTimeUpdate={this._handleTimeUpdate}
@@ -85,8 +90,12 @@ const withPlayerScreen = (Component) => {
   }
 
   WithPlayerScreen.propTypes = {
-    film: propsForFilms,
-    onExitButtonClick: PropTypes.func.isRequired,
+    films: PropTypes.arrayOf(propsForFilms).isRequired,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        id: PropTypes.string.isRequired
+      })
+    }),
   };
 
   return WithPlayerScreen;

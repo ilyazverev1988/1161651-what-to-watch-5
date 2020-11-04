@@ -15,7 +15,7 @@ import {ActionCreator} from "./store/action";
 
 const api = createAPI(() => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)));
 
-const store = createStore(rootReducer, composeWithDevTools(
+export const store = createStore(rootReducer, composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
     applyMiddleware(redirect)
 )

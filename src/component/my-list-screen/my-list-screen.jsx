@@ -2,22 +2,20 @@ import React from "react";
 import PropTypes from "prop-types";
 import SmallMovieCard from "../small-movie-card/small-movie-card";
 import propsForFilms from "../../mocks/prop-types-for-films";
+import {Link} from "react-router-dom";
 
 const MyList = (props) => {
-  let {filmActive, films, onFilmCardClick, onLogoLinkClick, handleMouseEnterFilm, handleMouseOverFilm} = props;
+  let {filmActive, films, handleMouseEnterFilm, handleMouseOverFilm} = props;
   const myFilm = films.slice(0, 4);
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
         <div className="logo">
-          <a onClick={(evt)=>{
-            evt.preventDefault();
-            onLogoLinkClick();
-          }} href="main.html" className="logo__link">
+          <Link to={`/`} href="main.html" className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
-          </a>
+          </Link>
         </div>
 
         <h1 className="page-title user-page__title">My list</h1>
@@ -33,7 +31,7 @@ const MyList = (props) => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__movies-list">
-          {myFilm.map((film) => <SmallMovieCard isActive={filmActive === film.id} onFilmCardClick={onFilmCardClick}
+          {myFilm.map((film) => <SmallMovieCard isActive={filmActive === film.id}
             key={film.nameFilm} film={film} onMouseEnterCard={()=>{
               handleMouseEnterFilm(film);
               props.handleMouseEnterFilm(film);
@@ -43,14 +41,11 @@ const MyList = (props) => {
 
       <footer className="page-footer">
         <div className="logo">
-          <a onClick={(evt)=>{
-            evt.preventDefault();
-            onLogoLinkClick();
-          }} href="main.html" className="logo__link logo__link--light">
+          <Link to={`/`} href="main.html" className="logo__link logo__link--light">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
-          </a>
+          </Link>
         </div>
 
         <div className="copyright">
@@ -63,8 +58,6 @@ const MyList = (props) => {
 
 MyList.propTypes = {
   films: PropTypes.arrayOf(propsForFilms).isRequired,
-  onFilmCardClick: PropTypes.func.isRequired,
-  onLogoLinkClick: PropTypes.func.isRequired,
   filmActive: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   handleMouseEnterFilm: PropTypes.func.isRequired,
   handleMouseOverFilm: PropTypes.func.isRequired

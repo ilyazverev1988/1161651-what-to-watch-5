@@ -3,14 +3,17 @@ import {returnElapsedTime} from "../../utils";
 import PropTypes from "prop-types";
 import propsForFilms from "../../mocks/prop-types-for-films";
 
+
 const Player = (props) => {
-  const {playFilm, progressVideo, timeLeftFilm, film, onExitButtonClick, handleClickFullScreen, handlePlayFilm, handlePauseFilm, children} = props;
+  const {playFilm, progressVideo, timeLeftFilm, film, handleClickFullScreen, handlePlayFilm, handlePauseFilm, children, history} = props;
   return (
     <Fragment>
       <div className="player">
         {children}
 
-        <button onClick={onExitButtonClick} type="button" className="player__exit">Exit</button>
+        <button onClick={()=>{
+          history.goBack();
+        }} type="button" className="player__exit">Exit</button>
 
         <div className="player__controls">
           <div className="player__controls-row">
@@ -57,10 +60,10 @@ const Player = (props) => {
 
 Player.propTypes = {
   film: propsForFilms,
+  history: PropTypes.object,
   playFilm: PropTypes.bool.isRequired,
   progressVideo: PropTypes.number,
   timeLeftFilm: PropTypes.number,
-  onExitButtonClick: PropTypes.func.isRequired,
   handleClickFullScreen: PropTypes.func.isRequired,
   handlePlayFilm: PropTypes.func.isRequired,
   handlePauseFilm: PropTypes.func.isRequired,

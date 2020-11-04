@@ -3,6 +3,7 @@ export const ActionType = {
   CREAT_LIST_FILMS_OF_GENRE: `GET_LIST_FILMS_OF_GENRE`,
   CHANGE_NUMBER_SHOWN_FILMS: `CHANGE_NUMBER_SHOWN_FILMS`,
   LOAD_FILMS: `LOAD_FILMS`,
+  LOAD_COMMENTS_OF_FILM: `LOAD_COMMENTS_OF_FILM`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
 };
@@ -32,6 +33,10 @@ export const ActionCreator = {
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url,
   }),
+  loadCommentsFilm: (comments) => ({
+    type: ActionType.LOAD_COMMENTS_OF_FILM,
+    payload: comments,
+  })
 };
 
 
