@@ -1,6 +1,7 @@
 import React, {createRef, PureComponent} from "react";
 import PropTypes from "prop-types";
 import propsForFilms from "../../mocks/prop-types-for-films";
+import {returnFilmForID} from "../../utils";
 
 const withPlayerScreen = (Component) => {
   class WithPlayerScreen extends PureComponent {
@@ -47,8 +48,8 @@ const withPlayerScreen = (Component) => {
 
     componentDidMount() {
       const {films} = this.props;
-      const id = this.props.match.params.id - 1;
-      const film = films[id];
+      const id = this.props.match.params.id;
+      const film = returnFilmForID(id, films);
       const {linkFullVideo} = film;
       const video = this._videoRef.current;
       video.src = linkFullVideo;
@@ -70,8 +71,8 @@ const withPlayerScreen = (Component) => {
     render() {
       const {playFilm, progressVideo, timeLeftFilm} = this.state;
       const {films} = this.props;
-      const id = this.props.match.params.id - 1;
-      const film = films[id];
+      const id = this.props.match.params.id;
+      const film = returnFilmForID(id, films);
 
       return (
         <Component {...this.props} playFilm={playFilm} progressVideo={progressVideo} timeLeftFilm={timeLeftFilm}

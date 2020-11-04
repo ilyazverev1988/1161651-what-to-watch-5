@@ -12,6 +12,10 @@ export const returnElapsedTime = (elapsedTimeFilm) => {
   return `${hours}:${minutes}:${seconds}`;
 };
 
+export const returnFilmForID = (ID, films) => {
+  return films.find((film) => film.id === Number(ID));
+};
+
 export const returnTimeForComment = (time) => {
   let months = [`January`, `February`, `March`, `April`, `May`, `June`,
     `July`, `August`, `September`, `October`, `November`, `December`];

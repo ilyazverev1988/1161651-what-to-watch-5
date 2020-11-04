@@ -4,13 +4,14 @@ import propsForFilms from "../../mocks/prop-types-for-films";
 import ReviewForm from "../review-form/review-form";
 import withReviewForm from "../../hocs/with-review-form/with-review-form";
 import {Link} from "react-router-dom";
+import {returnFilmForID} from "../../utils";
 
 const Review = withReviewForm(ReviewForm);
 
 const ReviewForMovie = (props) => {
   const {films} = props;
-  const id = props.match.params.id - 1;
-  const {poster, nameFilm, filmCover} = films[id];
+  const id = props.match.params.id;
+  const {poster, nameFilm, filmCover} = returnFilmForID(id, films);
   return (
     <section className="movie-card movie-card--full">
       <div className="movie-card__header">

@@ -10,6 +10,7 @@ import {Link} from "react-router-dom";
 import {fetchCommetsFilm} from "../../store/api-action";
 import {store} from "../../index";
 import {connect} from "react-redux";
+import {returnFilmForID} from "../../utils";
 
 const MoreLikeFilms = withActiveItem(MoreLikeThisFilm);
 const TabsInMoviePage = withTabs(TabsForMoviePageScreen);
@@ -33,8 +34,8 @@ export class MoviePage extends PureComponent {
 
   render() {
     const {films, reviews, authorizationStatus} = this.props;
-    const id = this.props.match.params.id - 1;
-    const {nameFilm, genre, releaseYear, filmCover, poster} = films[id];
+    const id = this.props.match.params.id;
+    const {nameFilm, genre, releaseYear, filmCover, poster} = returnFilmForID(id, films);
     const filmsByGenre = films.filter((film) => film.genre === genre).slice(0, 4);
     return (
       <Fragment>
