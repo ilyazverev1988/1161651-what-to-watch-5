@@ -5,6 +5,7 @@ import ReviewForm from "../review-form/review-form";
 import withReviewForm from "../../hocs/with-review-form/with-review-form";
 import {Link} from "react-router-dom";
 import {returnFilmForID} from "../../utils";
+import Avatar from "../avatar/avatar";
 
 const Review = withReviewForm(ReviewForm);
 
@@ -41,11 +42,7 @@ const ReviewForMovie = (props) => {
             </ul>
           </nav>
 
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-            </div>
-          </div>
+          <Avatar/>
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">

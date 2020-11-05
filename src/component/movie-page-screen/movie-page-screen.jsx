@@ -7,10 +7,11 @@ import withTabs from "../../hocs/with-tabs/with-tabs";
 import MoreLikeThisFilm from "../more-like-this-film/more-like-this-film";
 import withActiveItem from "../../hocs/with-active-item/with-active-item";
 import {Link} from "react-router-dom";
-import {fetchCommetsFilm} from "../../store/api-action";
+import {addFilmToFavorite, fetchCommetsFilm} from "../../store/api-action";
 import {store} from "../../index";
 import {connect} from "react-redux";
 import {returnFilmForID} from "../../utils";
+import Avatar from "../avatar/avatar";
 
 const MoreLikeFilms = withActiveItem(MoreLikeThisFilm);
 const TabsInMoviePage = withTabs(TabsForMoviePageScreen);
@@ -54,11 +55,7 @@ export class MoviePage extends PureComponent {
                 </Link>
               </div>
 
-              <div className="user-block">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-                </div>
-              </div>
+              <Avatar/>
             </header>
 
             <div className="movie-card__wrap">
@@ -78,7 +75,9 @@ export class MoviePage extends PureComponent {
                     <span>Play</span>
                   </Link>
 
-                  <Link to={`/mylist`} className="btn btn--list movie-card__button" type="button">
+                  <Link to={`/mylist`} onClick={()=>{
+                    store.dispatch(addFilmToFavorite(id));
+                  }} className="btn btn--list movie-card__button" type="button">
                     <svg viewBox="0 0 19 20" width="19" height="20">
                       <use xlinkHref="#add"/>
                     </svg>
@@ -97,7 +96,7 @@ export class MoviePage extends PureComponent {
                   height="327"/>
               </div>
 
-              <TabsInMoviePage film={films[id]} reviews={reviews}/>
+              <TabsInMoviePage film={returnFilmForID(id, films)} reviews={reviews}/>
 
             </div>
           </div>

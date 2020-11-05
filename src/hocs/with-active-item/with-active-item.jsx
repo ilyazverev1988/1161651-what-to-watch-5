@@ -23,6 +23,11 @@ const withActiveItem = (Component)=>{
       clearTimeout(this.timerId);
     }
 
+    componentWillUnmount() {
+      this.setState({filmActive: ``});
+      clearTimeout(this.timerId);
+    }
+
     render() {
       const {filmActive} = this.state;
       const {films} = this.props;

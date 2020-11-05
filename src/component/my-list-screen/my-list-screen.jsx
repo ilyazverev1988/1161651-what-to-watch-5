@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import SmallMovieCard from "../small-movie-card/small-movie-card";
 import propsForFilms from "../../mocks/prop-types-for-films";
 import {Link} from "react-router-dom";
+import {returnFilmsIsFavorite} from "../../utils";
+import Avatar from "../avatar/avatar";
 
 const MyList = (props) => {
   let {filmActive, films, handleMouseEnterFilm, handleMouseOverFilm} = props;
-  const myFilm = films.slice(0, 4);
+  const myFilm = returnFilmsIsFavorite(films);
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -20,11 +22,7 @@ const MyList = (props) => {
 
         <h1 className="page-title user-page__title">My list</h1>
 
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-          </div>
-        </div>
+        <Avatar/>
       </header>
 
       <section className="catalog">

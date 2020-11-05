@@ -8,11 +8,17 @@ import ButtonShowMore from "../button-show-more/button-show-more";
 import withActiveItem from "../../hocs/with-active-item/with-active-item";
 import {getFilmsByGenre} from "../../store/selectors";
 import {Link} from "react-router-dom";
+import {createAPI} from "../../services/api";
+import {checkAuth, fetchFilmList} from "../../store/api-action";
+import {store} from "../../index";
+import {ActionCreator} from "../../store/action";
+import {addFilmToFavorite} from "../../store/api-action";
+import Avatar from "../avatar/avatar";
 
 const ListFilmWithActive = withActiveItem(ListFilm);
 
 const Mainscreen = (props) => {
-  const {films, listOfCardsFilm, cardsOfShownFilms} = props;
+  const {films, listOfCardsFilm, cardsOfShownFilms, updateDataFilm} = props;
   let nameFilm;
   let filmCover;
   let poster;
@@ -46,12 +52,7 @@ const Mainscreen = (props) => {
                   <span className="logo__letter logo__letter--3">W</span>
                 </a>
               </div>
-
-              <div className="user-block">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-                </div>
-              </div>
+              <Avatar/>
             </header>
 
             <div className="movie-card__wrap">
@@ -75,7 +76,10 @@ const Mainscreen = (props) => {
                       </svg>
                       <span>Play</span>
                     </Link>
-                    <Link to={`/mylist`} className="btn btn--list movie-card__button" type="button">
+                    <Link to={`/mylist`} onClick={()=>{
+                      store.dispatch(addFilmToFavorite(1));
+                    }
+                    } className="btn btn--list movie-card__button" type="button">
                       <svg viewBox="0 0 19 20" width="19" height="20">
                         <use xlinkHref="#add"></use>
                       </svg>
@@ -125,10 +129,16 @@ Mainscreen.propTypes = {
   cardsOfShownFilms: PropTypes.number.isRequired,
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  updateDataFilm(film) {
+    dispatch(ActionCreator.updateDataFilm(film));
+  },
+});
+
 const mapStateToProps = ({FILM, DATA}) => ({
   listOfCardsFilm: getFilmsByGenre({FILM, DATA}),
   cardsOfShownFilms: FILM.cardsOfShownFilms
 });
 
 export {Mainscreen};
-export default connect(mapStateToProps, null)(Mainscreen);
+export default connect(mapStateToProps, mapDispatchToProps)(Mainscreen);

@@ -6,9 +6,15 @@ export const ActionType = {
   LOAD_COMMENTS_OF_FILM: `LOAD_COMMENTS_OF_FILM`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
+  UPDATE_DATA_FILM: `UPDATE_DATA_FILM`,
+  LOAD_USER_DATA: `LOAD_USER_DATA`,
 };
 
 export const ActionCreator = {
+  updateDataFilm: (film) => ({
+    type: ActionType.UPDATE_DATA_FILM,
+    payload: film
+  }),
   changeActiveFilter: (filter) => ({
     type: ActionType.CHANGE_FILTER_GENRE_FILMS,
     payload: filter
@@ -36,6 +42,10 @@ export const ActionCreator = {
   loadCommentsFilm: (comments) => ({
     type: ActionType.LOAD_COMMENTS_OF_FILM,
     payload: comments,
+  }),
+  loadUserData: (personalInfo) => ({
+    type: ActionType.LOAD_USER_DATA,
+    payload: personalInfo,
   })
 };
 

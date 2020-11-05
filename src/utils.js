@@ -16,6 +16,14 @@ export const returnFilmForID = (ID, films) => {
   return films.find((film) => film.id === Number(ID));
 };
 
+export const returnFilmsWithChanges = (films, filmChanged) => {
+  return films.map((film)=> film.id === filmChanged.id ? filmChanged : film);
+};
+
+export const returnFilmsIsFavorite = (films) => {
+  return films.filter((film)=>film.isFavorite === true);
+};
+
 export const returnTimeForComment = (time) => {
   let months = [`January`, `February`, `March`, `April`, `May`, `June`,
     `July`, `August`, `September`, `October`, `November`, `December`];
@@ -31,7 +39,7 @@ export const returnTestStarringOfFilms = (actors) => {
   return actors.join(`\n`);
 };
 
-export const returnFilmTime = (timeFilm)=> {
+export const returnFilmTime = (timeFilm) => {
   const addZeroForTime = (period) => {
     return (period < 10) ? `0` + period : period;
   };
