@@ -4,7 +4,8 @@ import {returnFilmsWithChanges} from "../../../utils";
 
 const initialState = {
   films: [],
-  comments: []
+  comments: [],
+  filmPromo: {},
 };
 
 const filmData = (state = initialState, action) => {
@@ -20,6 +21,14 @@ const filmData = (state = initialState, action) => {
     case ActionType.UPDATE_DATA_FILM:
       return extend(state, {
         films: returnFilmsWithChanges(state.films, action.payload)
+      });
+    case ActionType.UPDATE_DATA_PROMO_FILM:
+      return extend(state, {
+        filmPromo: action.payload
+      });
+    case ActionType.LOAD_PROMO_FILM:
+      return extend(state, {
+        filmPromo: action.payload,
       });
   }
   return state;

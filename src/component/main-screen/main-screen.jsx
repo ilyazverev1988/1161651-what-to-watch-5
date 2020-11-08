@@ -8,29 +8,29 @@ import ButtonShowMore from "../button-show-more/button-show-more";
 import withActiveItem from "../../hocs/with-active-item/with-active-item";
 import {getFilmsByGenre} from "../../store/selectors";
 import {Link} from "react-router-dom";
-import {createAPI} from "../../services/api";
-import {checkAuth, fetchFilmList} from "../../store/api-action";
+import {addPromoToFavorite} from "../../store/api-action";
 import {store} from "../../index";
 import {ActionCreator} from "../../store/action";
-import {addFilmToFavorite} from "../../store/api-action";
 import Avatar from "../avatar/avatar";
 
 const ListFilmWithActive = withActiveItem(ListFilm);
 
 const Mainscreen = (props) => {
-  const {films, listOfCardsFilm, cardsOfShownFilms, updateDataFilm} = props;
+  const {films, listOfCardsFilm, cardsOfShownFilms, filmPromo} = props;
   let nameFilm;
   let filmCover;
   let poster;
   let genre;
   let releaseYear;
+  let isFavorite;
 
-  if (films.length) {
-    nameFilm = films[0].nameFilm;
-    filmCover = films[0].filmCover;
-    poster = films[0].poster;
-    genre = films[0].genre;
-    releaseYear = films[0].releaseYear;
+  if (filmPromo) {
+    nameFilm = filmPromo.nameFilm;
+    filmCover = filmPromo.filmCover;
+    poster = filmPromo.poster;
+    genre = filmPromo.genre;
+    releaseYear = filmPromo.releaseYear;
+    isFavorite = filmPromo.isFavorite;
   }
 
   return (
@@ -76,15 +76,16 @@ const Mainscreen = (props) => {
                       </svg>
                       <span>Play</span>
                     </Link>
-                    <Link to={`/mylist`} onClick={()=>{
-                      store.dispatch(addFilmToFavorite(1));
-                    }
-                    } className="btn btn--list movie-card__button" type="button">
-                      <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#add"></use>
-                      </svg>
+                    <a onClick={()=>{
+                      store.dispatch(addPromoToFavorite(1, isFavorite));
+                    }} className="btn btn--list movie-card__button" type="button">
+                      {isFavorite ? <svg viewBox="0 0 18 14" width="18" height="14">
+                        <use xlinkHref="#in-list"/>
+                      </svg> : <svg viewBox="0 0 19 20" width="19" height="20">
+                        <use xlinkHref="#add"/>
+                      </svg>}
                       <span>My list</span>
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -124,6 +125,7 @@ const Mainscreen = (props) => {
 };
 
 Mainscreen.propTypes = {
+  filmPromo: propsForFilms,
   films: PropTypes.arrayOf(propsForFilms).isRequired,
   listOfCardsFilm: PropTypes.arrayOf(propsForFilms).isRequired,
   cardsOfShownFilms: PropTypes.number.isRequired,
@@ -137,7 +139,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = ({FILM, DATA}) => ({
   listOfCardsFilm: getFilmsByGenre({FILM, DATA}),
-  cardsOfShownFilms: FILM.cardsOfShownFilms
+  cardsOfShownFilms: FILM.cardsOfShownFilms,
+  filmPromo: DATA.filmPromo,
 });
 
 export {Mainscreen};

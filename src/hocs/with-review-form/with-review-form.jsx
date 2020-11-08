@@ -7,7 +7,7 @@ const withReviewForm = (Component) => {
     constructor(props) {
       super(props);
       this.state = {
-        rating: ``,
+        rating: `5`,
         reviewText: ``,
         error: ` `,
       };

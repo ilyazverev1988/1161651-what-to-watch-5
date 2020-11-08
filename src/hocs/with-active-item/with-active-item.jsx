@@ -19,8 +19,8 @@ const withActiveItem = (Component)=>{
     }
 
     _handleMouseOverFilm() {
-      this.setState({filmActive: ``});
       clearTimeout(this.timerId);
+      this.setState({filmActive: ``});
     }
 
     componentWillUnmount() {

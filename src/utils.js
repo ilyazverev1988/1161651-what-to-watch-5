@@ -35,10 +35,6 @@ export const returnStarringOfFilms = (actors) => {
   return actors.join(`, `) + ` and other`;
 };
 
-export const returnTestStarringOfFilms = (actors) => {
-  return actors.join(`\n`);
-};
-
 export const returnFilmTime = (timeFilm) => {
   const addZeroForTime = (period) => {
     return (period < 10) ? `0` + period : period;
@@ -46,6 +42,14 @@ export const returnFilmTime = (timeFilm) => {
   let hours = (Math.floor(timeFilm / 60));
   let minutes = addZeroForTime(Math.floor((timeFilm - (hours * 60))));
   return `${hours}h ${minutes}m`;
+};
+
+export const returnValueIsFavorite = (isFavorite) => {
+  if (isFavorite) {
+    return 0;
+  } else {
+    return 1;
+  }
 };
 
 export const adaptFilmToClient = (film) => {

@@ -8,11 +8,18 @@ export const ActionType = {
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
   UPDATE_DATA_FILM: `UPDATE_DATA_FILM`,
   LOAD_USER_DATA: `LOAD_USER_DATA`,
+  LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
+  UPDATE_DATA_PROMO_FILM: `UPDATE_DATA_PROMO_FILM`,
+  WRITE_ERROR: `WRITE_ERROR`
 };
 
 export const ActionCreator = {
   updateDataFilm: (film) => ({
     type: ActionType.UPDATE_DATA_FILM,
+    payload: film
+  }),
+  updateDataPromoFilm: (film) => ({
+    type: ActionType.UPDATE_DATA_PROMO_FILM,
     payload: film
   }),
   changeActiveFilter: (filter) => ({
@@ -46,7 +53,15 @@ export const ActionCreator = {
   loadUserData: (personalInfo) => ({
     type: ActionType.LOAD_USER_DATA,
     payload: personalInfo,
-  })
+  }),
+  loadPromoFilm: (film) => ({
+    type: ActionType.LOAD_PROMO_FILM,
+    payload: film,
+  }),
+  writeError: (error) => ({
+    type: ActionType.WRITE_ERROR,
+    payload: error,
+  }),
 };
 
 

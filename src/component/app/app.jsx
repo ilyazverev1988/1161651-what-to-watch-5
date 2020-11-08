@@ -13,9 +13,12 @@ import withPlayerScreen from "../../hocs/with-player-screen/with-player-screen";
 import {connect} from "react-redux";
 import PrivateRoute from "../private-route/private-route";
 import browserHistory from "../../browser-history";
+import withAuthScreen from "../../hocs/with-auth-screen/with-auth-screen";
+
 
 const PlayerWithActiveState = withPlayerScreen(Player);
 const MyListWithActiveState = withActiveItem(MyList);
+const AuthScreenWithState = withAuthScreen(AuthScreen);
 
 const App = (props) => {
 
@@ -26,7 +29,7 @@ const App = (props) => {
         <Route exact
           path="/login"
           render={() => (
-            <AuthScreen/>
+            <AuthScreenWithState/>
           )}
         />
         <Route exact path="/"

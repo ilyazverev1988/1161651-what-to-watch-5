@@ -36,7 +36,7 @@ export class MoviePage extends PureComponent {
   render() {
     const {films, reviews, authorizationStatus} = this.props;
     const id = this.props.match.params.id;
-    const {nameFilm, genre, releaseYear, filmCover, poster} = returnFilmForID(id, films);
+    const {nameFilm, genre, releaseYear, filmCover, poster, isFavorite} = returnFilmForID(id, films);
     const filmsByGenre = films.filter((film) => film.genre === genre).slice(0, 4);
     return (
       <Fragment>
@@ -75,14 +75,16 @@ export class MoviePage extends PureComponent {
                     <span>Play</span>
                   </Link>
 
-                  <Link to={`/mylist`} onClick={()=>{
-                    store.dispatch(addFilmToFavorite(id));
+                  <a to={`/mylist`} onClick={()=>{
+                    store.dispatch(addFilmToFavorite(id, isFavorite));
                   }} className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
+                    {isFavorite ? <svg viewBox="0 0 18 14" width="18" height="14">
+                      <use xlinkHref="#in-list"/>
+                    </svg> : <svg viewBox="0 0 19 20" width="19" height="20">
                       <use xlinkHref="#add"/>
-                    </svg>
+                    </svg>}
                     <span>My list</span>
-                  </Link>
+                  </a>
                   {authorizationStatus === `AUTH` ? <Link to={`/films/${this.props.match.params.id}/review`} href="add-review.html" className="btn movie-card__button">Add review</Link> : ``}
                 </div>
               </div>

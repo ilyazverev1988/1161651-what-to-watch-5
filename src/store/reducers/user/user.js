@@ -3,7 +3,8 @@ import {ActionType} from "../../action";
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
-  userData: {}
+  userData: {},
+  errorAuthorization: ``
 };
 
 const user = (state = initialState, action) => {
@@ -15,6 +16,10 @@ const user = (state = initialState, action) => {
     case ActionType.LOAD_USER_DATA:
       return Object.assign({}, state, {
         userData: action.payload,
+      });
+    case ActionType.WRITE_ERROR:
+      return Object.assign({}, state, {
+        errorAuthorization: action.payload,
       });
   }
 
