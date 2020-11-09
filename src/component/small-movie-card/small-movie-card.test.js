@@ -1,21 +1,21 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import MoreLikeThisFilm from "./more-like-this-film";
+import SmallMovieCard from "./small-movie-card";
 import films from "../../mocks/films";
-import {MemoryRouter} from 'react-router-dom';
+import {MemoryRouter} from "react-router-dom";
 
 const noop = () => {};
 
-describe(`Should MoreLikeThisFilm render correctly`, () => {
-  it(`With no filmActive`, () => {
+describe(`Should SmallMovieCard render correctly`, () => {
+  it(`With active film`, () => {
     const tree = renderer
       .create(
           <MemoryRouter>
-            <MoreLikeThisFilm
-              filmActive={``}
-              films={films}
-              handleMouseEnterFilm={noop}
-              handleMouseOverFilm={noop}
+            <SmallMovieCard
+              isActive={true}
+              film={films[1]}
+              onMouseOverCard={noop}
+              onMouseEnterCard={noop}
             />
           </MemoryRouter>, {
             createNodeMock: () => {
@@ -24,19 +24,18 @@ describe(`Should MoreLikeThisFilm render correctly`, () => {
           }
       )
       .toJSON();
-
     expect(tree).toMatchSnapshot();
   });
 
-  it(`With filmActive`, () => {
+  it(`No Active film`, () => {
     const tree = renderer
       .create(
           <MemoryRouter>
-            <MoreLikeThisFilm
-              filmActive={1}
-              films={films}
-              handleMouseEnterFilm={noop}
-              handleMouseOverFilm={noop}
+            <SmallMovieCard
+              isActive={false}
+              film={films[1]}
+              onMouseOverCard={noop}
+              onMouseEnterCard={noop}
             />
           </MemoryRouter>, {
             createNodeMock: () => {
@@ -45,7 +44,6 @@ describe(`Should MoreLikeThisFilm render correctly`, () => {
           }
       )
       .toJSON();
-
     expect(tree).toMatchSnapshot();
   });
 });

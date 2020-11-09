@@ -1,8 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
+import PropTypes, {bool, string} from "prop-types";
 
 const ReviewForm = (props) => {
-  const {handleSubmit, handleFieldChange, handlePostReview, error} = props;
+  const {handleSubmit, handleFieldChange, handlePostReview, error, isSendButtonEnable} = props;
   return (
     <form onSubmit={handleSubmit} action="#" className="add-review__form">
       <div className="rating">
@@ -32,7 +32,7 @@ const ReviewForm = (props) => {
         <textarea onChange={handleFieldChange} className="add-review__textarea" name="reviewText" id="reviewText"
           placeholder="Review text"/>
         <div className="add-review__submit">
-          <button onClick={handlePostReview} className="add-review__btn" type="submit">Post</button>
+          <button disabled={!isSendButtonEnable} onClick={handlePostReview} className="add-review__btn" type="submit">Post</button>
         </div>
       </div>
       {error === true ? <p>Произошла ошибка. Повторите попытку позже.</p> : ``}
@@ -44,7 +44,8 @@ ReviewForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleFieldChange: PropTypes.func.isRequired,
   handlePostReview: PropTypes.func.isRequired,
-  error: PropTypes.string.isRequired
+  error: PropTypes.oneOfType([PropTypes.bool.isRequired, PropTypes.string.isRequired]),
+  isSendButtonEnable: PropTypes.bool.isRequired
 };
 
 export default ReviewForm;

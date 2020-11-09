@@ -67,7 +67,7 @@ AuthScreen.propTypes = {
   handleChangePassword: PropTypes.func.isRequired,
   handleChangeEmail: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
   errorAuthorization: PropTypes.string.isRequired,
 };
 

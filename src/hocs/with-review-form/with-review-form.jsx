@@ -10,6 +10,7 @@ const withReviewForm = (Component) => {
         rating: `5`,
         reviewText: ``,
         error: ` `,
+        isSendButtonEnable: false
       };
       this._handleSubmit = this._handleSubmit.bind(this);
       this._handleFieldChange = this._handleFieldChange.bind(this);
@@ -28,11 +29,7 @@ const withReviewForm = (Component) => {
     _handlePostReview() {
       const {rating, reviewText} = this.state;
       const {id} = this.props;
-      let form = document.querySelector(`.add-review__form`);
-      let allElements = form.elements;
-      for (let element of allElements) {
-        element.disabled = true;
-      }
+      this.setState({isSendButtonEnable: false});
       const api = createAPI();
       api.post(`/comments/${id}`, {rating, comment: reviewText}).
         then(()=>{
@@ -40,26 +37,25 @@ const withReviewForm = (Component) => {
           history.back();
         }).
         catch(()=>{
-          for (let element of allElements) {
-            element.disabled = false;
-          }
-          this.setState({error: true});
+          this.setState({
+            isSendButtonEnable: true,
+            error: true});
         });
-    }
-
-    componentDidMount() {
-      document.querySelector(`.add-review__btn`).disabled = true;
     }
 
     componentDidUpdate() {
       const {rating, reviewText} = this.state;
-      document.querySelector(`.add-review__btn`).disabled = reviewText.length < 50 || reviewText.length > 400 || rating === ``;
+      if (reviewText.length < 50 || reviewText.length > 400 || rating === ``) {
+        this.setState({isSendButtonEnable: false});
+      } else {
+        this.setState({isSendButtonEnable: true});
+      }
     }
 
     render() {
-      const {error} = this.state;
+      const {error, isSendButtonEnable} = this.state;
       return (
-        <Component handleSubmit={this._handleSubmit} error={error} handlePostReview={this._handlePostReview} handleFieldChange={this._handleFieldChange}/>
+        <Component handleSubmit={this._handleSubmit} isSendButtonEnable={isSendButtonEnable} error={error} handlePostReview={this._handlePostReview} handleFieldChange={this._handleFieldChange}/>
       );
     }
   }

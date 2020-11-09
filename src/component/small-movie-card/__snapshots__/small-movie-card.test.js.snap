@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should SmallMovieCard render correctly No Active film 1`] = `
+<article
+  className="small-movie-card catalog__movies-card"
+>
+  <a
+    href="/films/2"
+    onClick={[Function]}
+  >
+    <div
+      className="small-movie-card__image"
+      onMouseOut={[Function]}
+      onMouseOver={[Function]}
+    >
+      <video
+        height="175"
+        width="280"
+      />
+    </div>
+  </a>
+  <h3
+    className="small-movie-card__title"
+  >
+    <a
+      className="small-movie-card__link"
+      href="/films/2"
+      onClick={[Function]}
+    >
+      Aviator2
+    </a>
+  </h3>
+</article>
+`;
+
+exports[`Should SmallMovieCard render correctly With active film 1`] = `
+<article
+  className="small-movie-card catalog__movies-card"
+>
+  <a
+    href="/films/2"
+    onClick={[Function]}
+  >
+    <div
+      className="small-movie-card__image"
+      onMouseOut={[Function]}
+      onMouseOver={[Function]}
+    >
+      <video
+        height="175"
+        width="280"
+      />
+    </div>
+  </a>
+  <h3
+    className="small-movie-card__title"
+  >
+    <a
+      className="small-movie-card__link"
+      href="/films/2"
+      onClick={[Function]}
+    >
+      Aviator2
+    </a>
+  </h3>
+</article>
+`;
