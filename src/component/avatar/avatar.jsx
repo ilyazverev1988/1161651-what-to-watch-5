@@ -28,7 +28,7 @@ const Avatar = (props) => {
 };
 
 Avatar.propTypes = {
-  userData: PropTypes.shape(undefined),
+  userData: PropTypes.oneOfType([PropTypes.string, PropTypes.shape(undefined)]),
   authorizationStatus: PropTypes.string.isRequired,
 };
 

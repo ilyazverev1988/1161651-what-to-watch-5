@@ -37,7 +37,7 @@ const withActiveItem = (Component)=>{
     }
   }
   WithActiveItem.propTypes = {
-    films: PropTypes.arrayOf(propsForFilms).isRequired,
+    films: PropTypes.arrayOf(propsForFilms),
   };
 
   return WithActiveItem;

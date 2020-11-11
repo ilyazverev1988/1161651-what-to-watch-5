@@ -1,8 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import PropTypes from "prop-types";
-import withPlayerScreen from "./with-player-screen";
+import withTabs from "./with-tabs";
 import films from "../../mocks/films";
+import reviews from "../../mocks/reviews";
 
 const MockComponent = (props) => {
   const {children} = props;
@@ -21,24 +22,16 @@ MockComponent.propTypes = {
   ]).isRequired,
 };
 
-const MockComponentWrapped = withPlayerScreen(MockComponent);
-const match = {params: {id: `4`}};
+const MockComponentWrapped = withTabs(MockComponent);
 
-it(`withPlayerScreen is rendered correctly`, () => {
+it(`withTabs is rendered correctly`, () => {
   const tree = renderer.create(
       <MockComponentWrapped
-        films={films}
-        match={match}
+        film={films[3]}
+        reviews={reviews}
       >
         <React.Fragment/>
-      </MockComponentWrapped>, {
-        createNodeMock: () => {
-          return {
-            play: () => {},
-            src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-          };
-        }
-      }
+      </MockComponentWrapped>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();
