@@ -9,7 +9,7 @@ const withReviewForm = (Component) => {
       this.state = {
         rating: `5`,
         reviewText: ``,
-        error: ` `,
+        error: ``,
         isSendButtonEnable: false
       };
       this._handleSubmit = this._handleSubmit.bind(this);
