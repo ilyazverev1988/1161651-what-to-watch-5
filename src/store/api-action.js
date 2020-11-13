@@ -17,8 +17,7 @@ export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
     .then((user) => dispatch(ActionCreator.loadUserData(user.data)))
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .catch(() => {
-    })
+    .catch(() => {})
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (

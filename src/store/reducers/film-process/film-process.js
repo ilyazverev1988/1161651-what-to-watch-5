@@ -15,19 +15,11 @@ const filmProcess = (state = initialState, action) => {
         activeGenre: action.payload,
         cardsOfShownFilms: BASE_NUMBER_OF_CARDS
       });
-
-    case ActionType.CREAT_LIST_FILMS_OF_GENRE:
-      return extend(state, {
-        listOfCardsFilm: action.payload,
-        cardsOfShownFilms: BASE_NUMBER_OF_CARDS
-      });
-
     case ActionType.CHANGE_NUMBER_SHOWN_FILMS:
       return extend(state, {
         cardsOfShownFilms: action.payload
       });
   }
-
   return state;
 };
 
