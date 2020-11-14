@@ -18,7 +18,7 @@ export const getUniqueGenresFilms = createSelector([filmsSelector], (filmsForGen
   for (let film of filmsForGenres) {
     allGenres.push((film.genre));
   }
-  return Array.from(new Set(allGenres.slice(0, 10)));
+  return Array.from(new Set(allGenres)).slice(0, 10);
 });
 
 

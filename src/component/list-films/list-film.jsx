@@ -11,7 +11,6 @@ const ListFilm = (props) => {
       {films.map((film) => <SmallMovieCard key={film.nameFilm} isActive={filmActive === film.id} film={film}
         onMouseEnterCard={()=>{
           handleMouseEnterFilm(film);
-          props.handleMouseEnterFilm(film);
         }} onMouseOverCard={handleMouseOverFilm}/>)}
     </div>
   );

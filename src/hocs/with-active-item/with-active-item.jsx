@@ -19,6 +19,11 @@ const withActiveItem = (Component)=>{
     }
 
     _handleMouseOverFilm() {
+      clearTimeout(this.timerId);
+      this.setState({filmActive: ``});
+    }
+
+    componentWillUnmount() {
       this.setState({filmActive: ``});
       clearTimeout(this.timerId);
     }
@@ -32,7 +37,7 @@ const withActiveItem = (Component)=>{
     }
   }
   WithActiveItem.propTypes = {
-    films: PropTypes.arrayOf(propsForFilms).isRequired,
+    films: PropTypes.arrayOf(propsForFilms),
   };
 
   return WithActiveItem;

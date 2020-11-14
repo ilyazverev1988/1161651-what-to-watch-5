@@ -11,7 +11,6 @@ const MoreLikeThisFilm = (props) =>{
       {myFilm.map((film) => <SmallMovieCard isActive={filmActive === film.id}
         key={film.nameFilm} film={film} onMouseEnterCard={()=>{
           handleMouseEnterFilm(film);
-          props.handleMouseEnterFilm(film);
         }}
         onMouseOverCard={handleMouseOverFilm}/>)}
     </div>

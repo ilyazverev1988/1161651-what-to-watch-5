@@ -2,7 +2,7 @@ import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import propsForFilms from "../../mocks/prop-types-for-films";
 import propsForReviews from "../../mocks/prop-types-for-reviws";
-import {returnStarringOfFilms, returnFilmTime, returnTestStarringOfFilms} from "../../utils";
+import {returnStarringOfFilms, returnFilmTime} from "../../utils";
 import {returnTimeForComment} from "../../utils";
 
 const TabsForMoviePageScreen = (props) => {
@@ -69,7 +69,13 @@ const TabsForMoviePageScreen = (props) => {
                 <p className="movie-card__details-item">
                   <strong className="movie-card__details-name">Starring</strong>
                   <span className="movie-card__details-value">
-                    {returnTestStarringOfFilms(cast)}
+                    {cast.map((starring, index) => {
+                      return (
+                        <React.Fragment key = {starring}>
+                          {starring}{index < cast.length - 1 ? <br /> : ``}
+                        </React.Fragment>
+                      );
+                    })}
                   </span>
                 </p>
               </div>
