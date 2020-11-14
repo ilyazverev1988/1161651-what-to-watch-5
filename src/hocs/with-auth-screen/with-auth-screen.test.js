@@ -28,12 +28,12 @@ const MockComponentWrapped = withActiveItem(MockComponent);
 describe(`Should MoviePage render correctly`, () => {
   it(`With error Autorization`, () => {
     const tree = renderer.create(
-      <MockComponentWrapped
-        onSubmit={noop}
-        errorAuthorization={`We can’t recognize this email and password combination. Please try again.`}
-      >
-        <React.Fragment/>
-      </MockComponentWrapped>
+        <MockComponentWrapped
+          onSubmit={noop}
+          errorAuthorization={`We can’t recognize this email and password combination. Please try again.`}
+        >
+          <React.Fragment/>
+        </MockComponentWrapped>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -41,12 +41,12 @@ describe(`Should MoviePage render correctly`, () => {
 
   it(`Without error Autorization`, () => {
     const tree = renderer.create(
-      <MockComponentWrapped
-        onSubmit={noop}
-        errorAuthorization={``}
-      >
-        <React.Fragment/>
-      </MockComponentWrapped>
+        <MockComponentWrapped
+          onSubmit={noop}
+          errorAuthorization={``}
+        >
+          <React.Fragment/>
+        </MockComponentWrapped>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

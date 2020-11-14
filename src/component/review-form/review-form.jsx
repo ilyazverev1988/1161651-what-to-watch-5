@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes, {bool, string} from "prop-types";
+import PropTypes from "prop-types";
 
 const ReviewForm = (props) => {
   const {handleSubmit, handleFieldChange, handlePostReview, error, isSendButtonEnable} = props;

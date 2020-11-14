@@ -18,6 +18,6 @@ const propsForFilms = PropTypes.shape({
   duration: PropTypes.number.isRequired,
   linkPreviewVideo: PropTypes.string.isRequired,
   linkFullVideo: PropTypes.string.isRequired,
-}).isRequired;
+});
 
 export default propsForFilms;

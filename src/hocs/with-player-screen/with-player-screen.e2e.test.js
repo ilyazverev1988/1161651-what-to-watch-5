@@ -22,6 +22,11 @@ MockComponent.propTypes = {
   ]).isRequired,
 };
 
+window.HTMLMediaElement.prototype.pause = () => {};
+const playStub = jest
+  .spyOn(window.HTMLMediaElement.prototype, `play`)
+  .mockImplementation(() => {});
+
 it(`Should change state depending on play film`, () => {
   const wrapper = mount(
       <MockComponentWrapped
@@ -29,6 +34,9 @@ it(`Should change state depending on play film`, () => {
         match={match}
       />
   );
+
+  expect(playStub).toHaveBeenCalled();
+  playStub.mockRestore();
 
   expect(wrapper.state().playFilm).toEqual(true);
   expect(wrapper.state().progressVideo).toEqual(null);

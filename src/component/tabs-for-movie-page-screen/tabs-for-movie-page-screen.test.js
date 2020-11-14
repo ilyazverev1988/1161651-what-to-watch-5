@@ -27,16 +27,16 @@ describe(`Should TabsForMoviePageScreen render correctly`, () => {
   it(`With active Overview`, () => {
     const tree = renderer
       .create(
-        <TabsForMoviePageScreen
-          film={films[1]}
-          reviews={reviews}
-          handleClickOverview={noop}
-          handleClickDetails={noop}
-          handleClickReviews={noop}
-          Details={false}
-          Overview={true}
-          Reviews={false}
-        />)
+          <TabsForMoviePageScreen
+            film={films[1]}
+            reviews={reviews}
+            handleClickOverview={noop}
+            handleClickDetails={noop}
+            handleClickReviews={noop}
+            Details={false}
+            Overview={true}
+            Reviews={false}
+          />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -44,16 +44,16 @@ describe(`Should TabsForMoviePageScreen render correctly`, () => {
   it(`With active Reviews`, () => {
     const tree = renderer
       .create(
-        <TabsForMoviePageScreen
-          film={films[1]}
-          reviews={reviews}
-          handleClickOverview={noop}
-          handleClickDetails={noop}
-          handleClickReviews={noop}
-          Details={false}
-          Overview={false}
-          Reviews={true}
-        />)
+          <TabsForMoviePageScreen
+            film={films[1]}
+            reviews={reviews}
+            handleClickOverview={noop}
+            handleClickDetails={noop}
+            handleClickReviews={noop}
+            Details={false}
+            Overview={false}
+            Reviews={true}
+          />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });

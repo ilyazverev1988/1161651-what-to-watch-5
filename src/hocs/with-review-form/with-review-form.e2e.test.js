@@ -2,7 +2,6 @@ import React from "react";
 import {configure, shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import withReviewForm from "./with-review-form";
-import withAuthScreen from "../with-auth-screen/with-auth-screen";
 
 configure({adapter: new Adapter()});
 const MockComponent = () => <div />;

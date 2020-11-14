@@ -2,7 +2,6 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {ButtonShowMore} from "./button-show-more";
 import {MemoryRouter} from "react-router-dom";
-import {Avatar} from "../avatar/avatar";
 const noop = () => {};
 
 it(`Should ButtonShowMore render correctly`, () => {

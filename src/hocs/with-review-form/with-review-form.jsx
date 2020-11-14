@@ -61,7 +61,7 @@ const withReviewForm = (Component) => {
   }
 
   WithReviewForm.propTypes = {
-    id: PropTypes.string.isRequired
+    id: PropTypes.string
   };
 
   return WithReviewForm;

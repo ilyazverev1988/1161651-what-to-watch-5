@@ -1,4 +1,4 @@
- import React, {Fragment} from "react";
+import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import propsForFilms from "../../mocks/prop-types-for-films";
 import propsForReviews from "../../mocks/prop-types-for-reviws";
