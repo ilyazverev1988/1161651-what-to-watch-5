@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
-import propsForFilms from "../../mocks/prop-types-for-films";
-import propsForReviews from "../../mocks/prop-types-for-reviws";
+import propsForFilms from "../../prop-types/prop-types-for-films";
+import propsForReviews from "../../prop-types/prop-types-for-reviws";
 
 const withTabs = (Component) => {
   class WithTabs extends PureComponent {

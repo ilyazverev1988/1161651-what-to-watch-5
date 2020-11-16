@@ -1,7 +1,12 @@
 import React from "react";
-import renderer from "react-test-renderer";
-import PropTypes from "prop-types";
-import withActiveItem from "./with-active-item";
+import Enzyme, {mount} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+import MoreLikeThisFilm from "./more-like-this-film";
+import {BrowserRouter as Router} from 'react-router-dom';
+
+Enzyme.configure({
+  adapter: new Adapter(),
+});
 
 const films = [
   {
@@ -43,33 +48,42 @@ const films = [
     linkFullVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1f/Fai_Ming_Estate_roadblock_20200126.webm/Fai_Ming_Estate_roadblock_20200126.webm.360p.vp9.webm`
   }
 ];
-const MockComponent = (props) => {
-  const {children} = props;
+const noop = () => {};
 
-  return (
-    <div>
-      {children}
-    </div>
+it(`Should mouseover the pointer over the movie card in moreLikeThisFilm`, () => {
+  const handleMouseEnterFilm = jest.fn();
+
+  const wrapper = mount(
+      <Router>
+        <MoreLikeThisFilm
+          films={films}
+          handleMouseEnterFilm={handleMouseEnterFilm}
+          handleMouseOverFilm={noop}
+          filmActive={0}>
+        </MoreLikeThisFilm>
+      </Router>
   );
-};
 
-MockComponent.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-};
+  const smallMovieCard = wrapper.find(`div.small-movie-card__image`).at(0);
+  smallMovieCard.simulate(`mouseover`);
+  expect(handleMouseEnterFilm).toHaveBeenCalledTimes(1);
+});
 
-const MockComponentWrapped = withActiveItem(MockComponent);
+it(`Should mouseout the pointer over the movie card in moreLikeThisFilm`, () => {
+  const handleMouseOverFilm = jest.fn();
 
-it(`withActiveItem is rendered correctly`, () => {
-  const tree = renderer.create(
-      <MockComponentWrapped
-        films={films}
-      >
-        <React.Fragment/>
-      </MockComponentWrapped>
-  ).toJSON();
+  const wrapper = mount(
+      <Router>
+        <MoreLikeThisFilm
+          films={films}
+          handleMouseEnterFilm={noop}
+          handleMouseOverFilm={handleMouseOverFilm}
+          filmActive={1}>
+        </MoreLikeThisFilm>
+      </Router>
+  );
 
-  expect(tree).toMatchSnapshot();
+  const smallMovieCard = wrapper.find(`div.small-movie-card__image`).at(1);
+  smallMovieCard.simulate(`mouseout`);
+  expect(handleMouseOverFilm).toHaveBeenCalledTimes(1);
 });

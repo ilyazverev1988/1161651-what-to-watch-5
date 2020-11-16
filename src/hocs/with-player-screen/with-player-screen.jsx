@@ -1,6 +1,6 @@
 import React, {createRef, PureComponent} from "react";
 import PropTypes from "prop-types";
-import propsForFilms from "../../mocks/prop-types-for-films";
+import propsForFilms from "../../prop-types/prop-types-for-films";
 import {returnFilmForID} from "../../utils";
 
 const withPlayerScreen = (Component) => {
