@@ -1,8 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PropTypes from "prop-types";
-import withActiveItem from "./with-active-item";
+import SmallMovieCard from "./small-movie-card";
+import {MemoryRouter} from "react-router-dom";
 
+const noop = () => {};
 const films = [
   {
     id: 1,
@@ -43,33 +44,45 @@ const films = [
     linkFullVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1f/Fai_Ming_Estate_roadblock_20200126.webm/Fai_Ming_Estate_roadblock_20200126.webm.360p.vp9.webm`
   }
 ];
-const MockComponent = (props) => {
-  const {children} = props;
 
-  return (
-    <div>
-      {children}
-    </div>
-  );
-};
+describe(`Should SmallMovieCard render correctly`, () => {
+  it(`With active film`, () => {
+    const tree = renderer
+      .create(
+          <MemoryRouter>
+            <SmallMovieCard
+              isActive={true}
+              film={films[1]}
+              onMouseOverCard={noop}
+              onMouseEnterCard={noop}
+            />
+          </MemoryRouter>, {
+            createNodeMock: () => {
+              return {};
+            }
+          }
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 
-MockComponent.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-};
-
-const MockComponentWrapped = withActiveItem(MockComponent);
-
-it(`withActiveItem is rendered correctly`, () => {
-  const tree = renderer.create(
-      <MockComponentWrapped
-        films={films}
-      >
-        <React.Fragment/>
-      </MockComponentWrapped>
-  ).toJSON();
-
-  expect(tree).toMatchSnapshot();
+  it(`No Active film`, () => {
+    const tree = renderer
+      .create(
+          <MemoryRouter>
+            <SmallMovieCard
+              isActive={false}
+              film={films[1]}
+              onMouseOverCard={noop}
+              onMouseEnterCard={noop}
+            />
+          </MemoryRouter>, {
+            createNodeMock: () => {
+              return {};
+            }
+          }
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });

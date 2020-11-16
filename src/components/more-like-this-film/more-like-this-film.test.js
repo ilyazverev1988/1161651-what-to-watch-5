@@ -1,8 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PropTypes from "prop-types";
-import withActiveItem from "./with-active-item";
+import MoreLikeThisFilm from "./more-like-this-film";
+import {MemoryRouter} from 'react-router-dom';
 
+const noop = () => {};
 const films = [
   {
     id: 1,
@@ -43,33 +44,47 @@ const films = [
     linkFullVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1f/Fai_Ming_Estate_roadblock_20200126.webm/Fai_Ming_Estate_roadblock_20200126.webm.360p.vp9.webm`
   }
 ];
-const MockComponent = (props) => {
-  const {children} = props;
 
-  return (
-    <div>
-      {children}
-    </div>
-  );
-};
+describe(`Should MoreLikeThisFilm render correctly`, () => {
+  it(`With no filmActive`, () => {
+    const tree = renderer
+      .create(
+          <MemoryRouter>
+            <MoreLikeThisFilm
+              filmActive={``}
+              films={films}
+              handleMouseEnterFilm={noop}
+              handleMouseOverFilm={noop}
+            />
+          </MemoryRouter>, {
+            createNodeMock: () => {
+              return {};
+            }
+          }
+      )
+      .toJSON();
 
-MockComponent.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-};
+    expect(tree).toMatchSnapshot();
+  });
 
-const MockComponentWrapped = withActiveItem(MockComponent);
+  it(`With filmActive`, () => {
+    const tree = renderer
+      .create(
+          <MemoryRouter>
+            <MoreLikeThisFilm
+              filmActive={1}
+              films={films}
+              handleMouseEnterFilm={noop}
+              handleMouseOverFilm={noop}
+            />
+          </MemoryRouter>, {
+            createNodeMock: () => {
+              return {};
+            }
+          }
+      )
+      .toJSON();
 
-it(`withActiveItem is rendered correctly`, () => {
-  const tree = renderer.create(
-      <MockComponentWrapped
-        films={films}
-      >
-        <React.Fragment/>
-      </MockComponentWrapped>
-  ).toJSON();
-
-  expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
+  });
 });

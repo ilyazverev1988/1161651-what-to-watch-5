@@ -5,8 +5,7 @@ import thunk from "redux-thunk";
 import {createAPI} from "./services/api";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from "react-redux";
-import App from "./component/app/app";
-import reviews from "./mocks/reviews";
+import App from "./components/app/app";
 import rootReducer from "./store/reducers/root-reducer";
 import {fetchFilmList, checkAuth, fetchPromoFilm} from "./store/api-action";
 import {AuthorizationStatus} from "./const";
@@ -29,7 +28,7 @@ Promise.all([
   .then(() => {
     ReactDom.render(
         <Provider store={store}>
-          <App reviews={reviews}/>
+          <App/>
         </Provider>,
         document.querySelector(`#root`)
     );

@@ -1,8 +1,13 @@
 import React from "react";
-import renderer from "react-test-renderer";
-import PropTypes from "prop-types";
-import withTabs from "./with-tabs";
+import Enzyme, {shallow} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+import TabsForMoviePageScreen from "./tabs-for-movie-page-screen";
 
+Enzyme.configure({
+  adapter: new Adapter(),
+});
+
+const noop = () => {};
 const films = [
   {
     id: 1,
@@ -65,34 +70,66 @@ const reviews = [
     date: `2020-10-27T13:38:44.769Z`
   }
 ];
-const MockComponent = (props) => {
-  const {children} = props;
 
-  return (
-    <div>
-      {children}
-    </div>
-  );
-};
+it(`Should overview button be pressed`, () => {
+  const handleClickReviews = jest.fn();
 
-MockComponent.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-};
-
-const MockComponentWrapped = withTabs(MockComponent);
-
-it(`withTabs is rendered correctly`, () => {
-  const tree = renderer.create(
-      <MockComponentWrapped
-        film={films[3]}
+  const wrapper = shallow(
+      <TabsForMoviePageScreen
+        film={films[1]}
         reviews={reviews}
-      >
-        <React.Fragment/>
-      </MockComponentWrapped>
-  ).toJSON();
+        handleClickOverview={noop}
+        handleClickDetails={noop}
+        handleClickReviews={ handleClickReviews}
+        Details={true}
+        Overview={false}
+        Reviews={false}
+      />
+  );
 
-  expect(tree).toMatchSnapshot();
+  const buttonOverview = wrapper.find(`a.movie-nav__link`).at(`2`);
+  buttonOverview.simulate(`click`);
+  expect(handleClickReviews).toHaveBeenCalledTimes(1);
+});
+
+it(`Should details button be pressed`, () => {
+  const handleClickDetails = jest.fn();
+
+  const wrapper = shallow(
+      <TabsForMoviePageScreen
+        film={films[1]}
+        reviews={reviews}
+        handleClickOverview={noop}
+        handleClickDetails={handleClickDetails}
+        handleClickReviews={noop}
+        Details={false}
+        Overview={true}
+        Reviews={false}
+      />
+  );
+
+  const buttonOverview = wrapper.find(`a.movie-nav__link`).at(`1`);
+  buttonOverview.simulate(`click`);
+  expect(handleClickDetails).toHaveBeenCalledTimes(1);
+});
+
+it(`Should reviews button be pressed`, () => {
+  const handleClickReviews = jest.fn();
+
+  const wrapper = shallow(
+      <TabsForMoviePageScreen
+        film={films[1]}
+        reviews={reviews}
+        handleClickOverview={noop}
+        handleClickDetails={noop}
+        handleClickReviews={handleClickReviews}
+        Details={false}
+        Overview={true}
+        Reviews={false}
+      />
+  );
+
+  const buttonOverview = wrapper.find(`a.movie-nav__link`).at(`2`);
+  buttonOverview.simulate(`click`);
+  expect(handleClickReviews).toHaveBeenCalledTimes(1);
 });

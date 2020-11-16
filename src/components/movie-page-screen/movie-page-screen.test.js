@@ -1,8 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PropTypes from "prop-types";
-import withTabs from "./with-tabs";
+import {MoviePage} from "./movie-page-screen";
+import {MemoryRouter} from "react-router-dom";
+import configureMockStore from "redux-mock-store";
+import {Provider} from "react-redux";
 
+const match = {params: {id: `1`}};
+const mockStore = configureMockStore();
 const films = [
   {
     id: 1,
@@ -65,34 +69,64 @@ const reviews = [
     date: `2020-10-27T13:38:44.769Z`
   }
 ];
-const MockComponent = (props) => {
-  const {children} = props;
+const store = mockStore({
+  USER: {
+    userData: {
+      id: 1,
+      email: `3@mail.ru`,
+      name: `3`,
+      avatarURL: `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/10.jpg`,
+      errorAuthorization: ``
+    },
+    authorizationStatus: `AUTH`
+  },
+});
 
-  return (
-    <div>
-      {children}
-    </div>
-  );
-};
+const storeForSecondTest = mockStore({
+  USER: {
+    userData: {},
+    authorizationStatus: `NO_AUTH`
+  },
+});
 
-MockComponent.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-};
+describe(`Should MoviePage render correctly`, () => {
+  it(`With Autorization`, () => {
+    const tree = renderer
+      .create(
+          <Provider store={store}>
+            <MemoryRouter>
+              <MoviePage
+                films={films}
+                reviews={reviews}
+                match={match}
+              />
+            </MemoryRouter>
+          </Provider>, {
+            createNodeMock: () => {
+              return {};
+            }
+          })
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 
-const MockComponentWrapped = withTabs(MockComponent);
-
-it(`withTabs is rendered correctly`, () => {
-  const tree = renderer.create(
-      <MockComponentWrapped
-        film={films[3]}
-        reviews={reviews}
-      >
-        <React.Fragment/>
-      </MockComponentWrapped>
-  ).toJSON();
-
-  expect(tree).toMatchSnapshot();
+  it(`Without Autorization`, () => {
+    const tree = renderer
+      .create(
+          <Provider store={storeForSecondTest}>
+            <MemoryRouter>
+              <MoviePage
+                films={films}
+                reviews={reviews}
+                match={match}
+              />
+            </MemoryRouter>
+          </Provider>, {
+            createNodeMock: () => {
+              return {};
+            }
+          })
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });

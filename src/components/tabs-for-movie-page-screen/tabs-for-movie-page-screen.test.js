@@ -1,8 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PropTypes from "prop-types";
-import withTabs from "./with-tabs";
+import TabsForMoviePageScreen from "./tabs-for-movie-page-screen";
 
+const noop = () => {};
 const films = [
   {
     id: 1,
@@ -65,34 +65,56 @@ const reviews = [
     date: `2020-10-27T13:38:44.769Z`
   }
 ];
-const MockComponent = (props) => {
-  const {children} = props;
 
-  return (
-    <div>
-      {children}
-    </div>
-  );
-};
+describe(`Should TabsForMoviePageScreen render correctly`, () => {
+  it(`With active Details`, () => {
+    const tree = renderer
+      .create(
+          <TabsForMoviePageScreen
+            film={films[1]}
+            reviews={reviews}
+            handleClickOverview={noop}
+            handleClickDetails={noop}
+            handleClickReviews={noop}
+            Details={true}
+            Overview={false}
+            Reviews={false}
+          />)
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 
-MockComponent.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-};
+  it(`With active Overview`, () => {
+    const tree = renderer
+      .create(
+          <TabsForMoviePageScreen
+            film={films[1]}
+            reviews={reviews}
+            handleClickOverview={noop}
+            handleClickDetails={noop}
+            handleClickReviews={noop}
+            Details={false}
+            Overview={true}
+            Reviews={false}
+          />)
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 
-const MockComponentWrapped = withTabs(MockComponent);
-
-it(`withTabs is rendered correctly`, () => {
-  const tree = renderer.create(
-      <MockComponentWrapped
-        film={films[3]}
-        reviews={reviews}
-      >
-        <React.Fragment/>
-      </MockComponentWrapped>
-  ).toJSON();
-
-  expect(tree).toMatchSnapshot();
+  it(`With active Reviews`, () => {
+    const tree = renderer
+      .create(
+          <TabsForMoviePageScreen
+            film={films[1]}
+            reviews={reviews}
+            handleClickOverview={noop}
+            handleClickDetails={noop}
+            handleClickReviews={noop}
+            Details={false}
+            Overview={false}
+            Reviews={true}
+          />)
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });

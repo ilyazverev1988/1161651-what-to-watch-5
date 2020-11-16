@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import propsForFilms from "../../mocks/prop-types-for-films";
+import propsForFilms from "../../prop-types/prop-types-for-films";
 
 const withActiveItem = (Component)=>{
   class WithActiveItem extends PureComponent {

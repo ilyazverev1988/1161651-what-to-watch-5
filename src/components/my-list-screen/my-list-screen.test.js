@@ -1,8 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PropTypes from "prop-types";
-import withActiveItem from "./with-active-item";
+import MyList from "./my-list-screen";
+import {MemoryRouter} from "react-router-dom";
+import {Provider} from "react-redux";
+import configureMockStore from "redux-mock-store";
 
+const noop = () => {};
 const films = [
   {
     id: 1,
@@ -43,33 +46,63 @@ const films = [
     linkFullVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1f/Fai_Ming_Estate_roadblock_20200126.webm/Fai_Ming_Estate_roadblock_20200126.webm.360p.vp9.webm`
   }
 ];
-const MockComponent = (props) => {
-  const {children} = props;
+const mockStore = configureMockStore();
+const store = mockStore({
+  USER: {
+    userData: {
+      id: 1,
+      email: `3@mail.ru`,
+      name: `3`,
+      avatarURL: `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/10.jpg`,
+      errorAuthorization: ``
+    },
+    authorizationStatus: `AUTH`
+  }
+});
 
-  return (
-    <div>
-      {children}
-    </div>
-  );
-};
+describe(`Should MyList render correctly`, () => {
+  it(`With filmActive`, () => {
+    const tree = renderer
+      .create(
+          <Provider store={store}>
+            <MemoryRouter>
+              <MyList
+                filmActive={``}
+                films={films}
+                handleMouseEnterFilm={noop}
+                handleMouseOverFilm={noop}
+              />
+            </MemoryRouter>
+          </Provider>, {
+            createNodeMock: () => {
+              return {};
+            }
+          }
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 
-MockComponent.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-};
+  it(`No filmActive`, () => {
+    const tree = renderer
+      .create(
+          <Provider store={store}>
+            <MemoryRouter>
+              <MyList
+                filmActive={1}
+                films={films}
+                handleMouseEnterFilm={noop}
+                handleMouseOverFilm={noop}
+              />
+            </MemoryRouter>
+          </Provider>, {
+            createNodeMock: () => {
+              return {};
+            }
+          }
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 
-const MockComponentWrapped = withActiveItem(MockComponent);
-
-it(`withActiveItem is rendered correctly`, () => {
-  const tree = renderer.create(
-      <MockComponentWrapped
-        films={films}
-      >
-        <React.Fragment/>
-      </MockComponentWrapped>
-  ).toJSON();
-
-  expect(tree).toMatchSnapshot();
 });

@@ -1,8 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PropTypes from "prop-types";
-import withActiveItem from "./with-active-item";
+import ReviewForMovie from "./review-for-movie-screen";
+import {MemoryRouter} from "react-router-dom";
+import {Provider} from "react-redux";
+import configureMockStore from "redux-mock-store";
 
+const match = {params: {id: `1`}};
 const films = [
   {
     id: 1,
@@ -43,33 +46,38 @@ const films = [
     linkFullVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1f/Fai_Ming_Estate_roadblock_20200126.webm/Fai_Ming_Estate_roadblock_20200126.webm.360p.vp9.webm`
   }
 ];
-const MockComponent = (props) => {
-  const {children} = props;
+const mockStore = configureMockStore();
+const store = mockStore({
+  USER: {
+    userData: {
+      id: 1,
+      email: `3@mail.ru`,
+      name: `3`,
+      avatarURL: `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/10.jpg`,
+      errorAuthorization: ``
+    },
+    authorizationStatus: `AUTH`
+  }
+});
 
-  return (
-    <div>
-      {children}
-    </div>
-  );
-};
-
-MockComponent.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-};
-
-const MockComponentWrapped = withActiveItem(MockComponent);
-
-it(`withActiveItem is rendered correctly`, () => {
-  const tree = renderer.create(
-      <MockComponentWrapped
-        films={films}
-      >
-        <React.Fragment/>
-      </MockComponentWrapped>
-  ).toJSON();
-
-  expect(tree).toMatchSnapshot();
+describe(`Should ReviewForMovie render correctly`, () => {
+  it(`With films`, () => {
+    const tree = renderer
+      .create(
+          <Provider store={store}>
+            <MemoryRouter>
+              <ReviewForMovie
+                films={films}
+                match={match}
+              />
+            </MemoryRouter>
+          </Provider>, {
+            createNodeMock: () => {
+              return {};
+            }
+          }
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });
