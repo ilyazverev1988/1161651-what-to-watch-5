@@ -8,17 +8,9 @@ import MoviePage from "../movie-page-screen/movie-page-screen";
 import ReviewForMovie from "../review-for-movie-screen/review-for-movie-screen";
 import Player from "../player-screen/player-screen";
 import propsForFilms from "../../prop-types/prop-types-for-films";
-import withActiveItem from "../../hocs/with-active-item/with-active-item";
-import withPlayerScreen from "../../hocs/with-player-screen/with-player-screen";
 import {connect} from "react-redux";
 import PrivateRoute from "../private-route/private-route";
 import browserHistory from "../../browser-history";
-import withAuthScreen from "../../hocs/with-auth-screen/with-auth-screen";
-
-
-const PlayerWithActiveState = withPlayerScreen(Player);
-const MyListWithActiveState = withActiveItem(MyList);
-const AuthScreenWithState = withAuthScreen(AuthScreen);
 
 const App = (props) => {
 
@@ -29,7 +21,7 @@ const App = (props) => {
         <Route exact
           path="/login"
           render={() => (
-            <AuthScreenWithState/>
+            <AuthScreen/>
           )}
         />
         <Route exact path="/"
@@ -39,7 +31,7 @@ const App = (props) => {
         />
         <PrivateRoute exact path="/mylist" render={() => {
           return (
-            <MyListWithActiveState films={films}/>);
+            <MyList films={films}/>);
         }}
         />
         <Route exact path="/films/:id"
@@ -53,7 +45,7 @@ const App = (props) => {
         />
         <Route exact path="/player/:id"
           render={(prop) =>
-            (<PlayerWithActiveState {...prop} films={films}/>
+            (<Player {...prop} films={films}/>
             )}
         />
 

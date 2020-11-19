@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import SmallMovieCard from "../small-movie-card/small-movie-card";
 import propsForFilms from "../../prop-types/prop-types-for-films";
@@ -7,8 +7,23 @@ import {returnFilmsIsFavorite} from "../../utils";
 import Avatar from "../avatar/avatar";
 
 const MyList = (props) => {
-  let {filmActive, films, handleMouseEnterFilm, handleMouseOverFilm} = props;
+  const [internalState, setInternalState] = useState({
+    filmActive: ``,
+  });
+  let {filmActive} = internalState;
+  let {films} = props;
+  let timerId;
   const myFilm = returnFilmsIsFavorite(films);
+  useEffect(()=>{
+    return () => {
+      setInternalState(
+          Object.assign(
+              {}, internalState, {
+                filmActive: ``
+              }));
+      clearTimeout(timerId);
+    };
+  }, []);
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -31,8 +46,20 @@ const MyList = (props) => {
         <div className="catalog__movies-list">
           {myFilm.map((film) => <SmallMovieCard isActive={filmActive === film.id}
             key={film.nameFilm} film={film} onMouseEnterCard={()=>{
-              handleMouseEnterFilm(film);
-            }} onMouseOverCard={handleMouseOverFilm}/>)}
+              timerId = setTimeout(() =>
+                setInternalState(
+                    Object.assign(
+                        {}, internalState, {
+                          filmActive: film.id
+                        })), 1000);
+            }} onMouseOverCard={()=>{
+              clearTimeout(timerId);
+              setInternalState(
+                  Object.assign(
+                      {}, internalState, {
+                        filmActive: ``
+                      }));
+            }}/>)}
         </div>
       </section>
 
@@ -56,8 +83,6 @@ const MyList = (props) => {
 MyList.propTypes = {
   films: PropTypes.arrayOf(propsForFilms).isRequired,
   filmActive: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  handleMouseEnterFilm: PropTypes.func.isRequired,
-  handleMouseOverFilm: PropTypes.func.isRequired
 };
 
 export default MyList;

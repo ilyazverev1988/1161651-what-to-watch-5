@@ -2,12 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import propsForFilms from "../../prop-types/prop-types-for-films";
 import ReviewForm from "../review-form/review-form";
-import withReviewForm from "../../hocs/with-review-form/with-review-form";
 import {Link} from "react-router-dom";
 import {returnFilmForID} from "../../utils";
 import Avatar from "../avatar/avatar";
-
-const Review = withReviewForm(ReviewForm);
 
 const ReviewForMovie = (props) => {
   const {films} = props;
@@ -52,7 +49,7 @@ const ReviewForMovie = (props) => {
       </div>
 
       <div className="add-review">
-        <Review id={props.match.params.id}/>
+        <ReviewForm id={props.match.params.id}/>
       </div>
 
     </section>

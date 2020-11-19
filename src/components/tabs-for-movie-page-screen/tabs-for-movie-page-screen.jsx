@@ -1,12 +1,19 @@
-import React, {Fragment} from "react";
-import PropTypes from "prop-types";
+import React, {Fragment, useState} from "react";
 import propsForFilms from "../../prop-types/prop-types-for-films";
 import propsForReviews from "../../prop-types/prop-types-for-reviws";
 import {returnStarringOfFilms, returnFilmTime} from "../../utils";
 import {returnTimeForComment} from "../../utils";
 
 const TabsForMoviePageScreen = (props) => {
-  const {Overview, Details, Reviews, handleClickOverview, handleClickDetails, handleClickReviews, film, reviews} = props;
+
+  const [internalState, setInternalState] = useState({
+    Overview: true,
+    Details: false,
+    Reviews: false
+  });
+
+  const {Overview, Details, Reviews} = internalState;
+  const {film, reviews} = props;
   const {genre, releaseYear, commonScore, numberOfVotes, cast, producer, descriptionFilm, duration} = film;
   const reviewsForFirstColumn = reviews.slice(0, Math.round(reviews.length / 2));
   const reviewsForSecondColumn = reviews.slice(Math.round(reviews.length / 2), reviews.length);
@@ -22,19 +29,48 @@ const TabsForMoviePageScreen = (props) => {
   } else if (commonScore === 10) {
     textRating = `Awesome`;
   }
+
   return (
     <Fragment>
       <div className="movie-card__desc">
         <nav className="movie-nav movie-card__nav">
           <ul className="movie-nav__list">
             <li className={`movie-nav__item  ${Overview ? `movie-nav__item--active` : ``}`}>
-              <a onClick={handleClickOverview} href="#" className="movie-nav__link">Overview</a>
+              <a onClick={(evt)=>{
+                evt.preventDefault();
+                setInternalState(
+                    Object.assign(
+                        {}, internalState, {
+                          Overview: true,
+                          Details: false,
+                          Reviews: false
+                        }));
+              }}
+              href="#" className="movie-nav__link">Overview</a>
             </li>
             <li className={`movie-nav__item  ${Details ? `movie-nav__item--active` : ``}`}>
-              <a onClick={handleClickDetails} href="#" className="movie-nav__link">Details</a>
+              <a onClick={(evt)=>{
+                evt.preventDefault();
+                setInternalState(
+                    Object.assign(
+                        {}, internalState, {
+                          Overview: false,
+                          Details: true,
+                          Reviews: false
+                        }));
+              }} href="#" className="movie-nav__link">Details</a>
             </li>
             <li className={`movie-nav__item  ${Reviews ? `movie-nav__item--active` : ``}`}>
-              <a onClick={handleClickReviews} href="#" className="movie-nav__link">Reviews</a>
+              <a onClick={(evt)=>{
+                evt.preventDefault();
+                setInternalState(
+                    Object.assign(
+                        {}, internalState, {
+                          Overview: false,
+                          Details: false,
+                          Reviews: true
+                        }));
+              }} href="#" className="movie-nav__link">Reviews</a>
             </li>
           </ul>
         </nav>
@@ -142,12 +178,6 @@ const TabsForMoviePageScreen = (props) => {
 TabsForMoviePageScreen.propTypes = {
   film: propsForFilms,
   reviews: propsForReviews,
-  Overview: PropTypes.bool.isRequired,
-  Details: PropTypes.bool.isRequired,
-  Reviews: PropTypes.bool.isRequired,
-  handleClickOverview: PropTypes.func.isRequired,
-  handleClickDetails: PropTypes.func.isRequired,
-  handleClickReviews: PropTypes.func.isRequired
 };
 
 export default TabsForMoviePageScreen;

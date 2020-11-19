@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Should MoviePage render correctly With error Autorization 1`] = `<div />`;
-
-exports[`Should MoviePage render correctly Without error Autorization 1`] = `<div />`;

@@ -1,15 +1,61 @@
-import React, {Fragment} from "react";
-import {returnElapsedTime} from "../../utils";
+import React, {Fragment, useState, useEffect, useRef} from "react";
+import {returnElapsedTime, returnFilmForID} from "../../utils";
 import PropTypes from "prop-types";
 import propsForFilms from "../../prop-types/prop-types-for-films";
 
 
 const Player = (props) => {
-  const {playFilm, progressVideo, timeLeftFilm, film, handleClickFullScreen, handlePlayFilm, handlePauseFilm, children, history} = props;
+  const [internalState, setInternalState] = useState({
+    playFilm: true,
+    progressVideo: null,
+    timeLeftFilm: null,
+  });
+  const {playFilm, progressVideo, timeLeftFilm} = internalState;
+  const {films, history} = props;
+  const id = props.match.params.id;
+  const film = returnFilmForID(id, films);
+  const video = useRef(null);
+  useEffect(()=>{
+    const {linkFullVideo} = film;
+    video.current.src = linkFullVideo;
+    video.current.play();
+  }, []);
+
+  useEffect(()=>{
+    if (playFilm) {
+      video.current.play();
+    } else {
+      video.current.pause();
+    }
+  }, [playFilm]);
+
   return (
     <Fragment>
       <div className="player">
-        {children}
+        <video ref={video} onTimeUpdate={()=>{
+          setInternalState(
+              Object.assign(
+                  {}, internalState, {
+                    progressVideo: video.current.currentTime * 100 / video.current.duration,
+                    timeLeftFilm: video.current.duration - video.current.currentTime,
+                  }));
+        }}
+        onPause={()=>{
+          setInternalState(
+              Object.assign(
+                  {}, internalState, {
+                    playFilm: false
+                  }));
+        }}
+        onPlay={()=>{
+          setInternalState(
+              Object.assign(
+                  {}, internalState, {
+                    playFilm: true
+                  }));
+        }}
+        className="player__video"
+        poster={film.poster}/>
 
         <button onClick={()=>{
           history.goBack();
@@ -25,8 +71,21 @@ const Player = (props) => {
           </div>
 
           <div className="player__controls-row">
-            <button onClick={playFilm ? handlePauseFilm : handlePlayFilm} type="button"
-              className="player__play">
+            <button onClick={playFilm ? ()=>{
+              setInternalState(
+                  Object.assign(
+                      {}, internalState, {
+                        playFilm: false
+                      }));
+            }
+              : ()=>{
+                setInternalState(
+                    Object.assign(
+                        {}, internalState, {
+                          playFilm: true
+                        }));
+              }} type="button"
+            className="player__play">
               {!playFilm && (
                 <Fragment>
                   <svg viewBox="0 0 19 19" width="19" height="19">
@@ -45,7 +104,10 @@ const Player = (props) => {
             </button>
             <div className="player__name">{film.nameFilm}</div>
 
-            <button onClick={handleClickFullScreen} type="button" className="player__full-screen">
+            <button onClick={(evt)=>{
+              evt.preventDefault();
+              video.current.requestFullscreen();
+            }} type="button" className="player__full-screen">
               <svg viewBox="0 0 27 27" width="27" height="27">
                 <use xlinkHref="#full-screen"></use>
               </svg>
@@ -59,15 +121,14 @@ const Player = (props) => {
 };
 
 Player.propTypes = {
+  films: PropTypes.arrayOf(propsForFilms).isRequired,
   film: propsForFilms,
   history: PropTypes.object,
-  playFilm: PropTypes.bool.isRequired,
-  progressVideo: PropTypes.number,
-  timeLeftFilm: PropTypes.number,
-  handleClickFullScreen: PropTypes.func.isRequired,
-  handlePlayFilm: PropTypes.func.isRequired,
-  handlePauseFilm: PropTypes.func.isRequired,
-  children: PropTypes.node
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired
+    })
+  }),
 };
 
 export default Player;

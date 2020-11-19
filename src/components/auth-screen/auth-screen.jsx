@@ -1,9 +1,49 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {login} from "../../store/api-action";
 
 const AuthScreen = (props) => {
-  const {errorEmail, errorPassword, errorAuthorization, handleChangePassword, handleChangeEmail, handleSubmit} = props;
+  const {errorAuthorization, onSubmit} = props;
+  const [internalState, setInternalState] = useState({
+    errorEmail: ``,
+    errorPassword: ``,
+    inputEmail: ``,
+    inputPassword: ``
+  });
+
+  let {errorEmail, errorPassword, inputEmail, inputPassword} = internalState;
+  useEffect(()=>{
+    validate();
+  }, [inputEmail, inputPassword]);
+  const validate = () => {
+    if (!inputEmail) {
+      errorEmail = `Please enter a valid email address`;
+    }
+
+    if (!inputPassword) {
+      errorPassword = `Please enter a password`;
+    } else {
+      errorPassword = ``;
+    }
+
+    if (typeof inputEmail !== `undefined`) {
+      let pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+      if (!pattern.test(inputEmail)) {
+        errorEmail = `Please enter a valid email address`;
+      } else {
+        errorEmail = ``;
+      }
+    }
+
+    setInternalState(
+        Object.assign(
+            {}, internalState, {
+              errorEmail,
+              errorPassword
+            }));
+  };
 
   return (
     <div className="user-page">
@@ -20,21 +60,40 @@ const AuthScreen = (props) => {
       </header>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
+        <form action="#" className="sign-in__form" onSubmit={(evt)=>{
+          evt.preventDefault();
+          onSubmit({
+            login: inputEmail,
+            password: inputPassword,
+          });
+          validate();
+        }}>
           <div className="sign-in__message">
             <p>{errorEmail || errorAuthorization}</p>
           </div>
           <div className="sign-in__fields">
             <div className={errorEmail === `` ? `sign-in__field` : `sign-in__field sign-in__field--error`}>
-              <input onChange={handleChangeEmail} className="sign-in__input"
-                placeholder="Email address" name="user-email"
-                id="user-email"/>
+              <input onChange={(evt)=>{
+                setInternalState(
+                    Object.assign(
+                        {}, internalState, {
+                          inputEmail: evt.target.value
+                        }));
+              }} className="sign-in__input"
+              placeholder="Email address" name="user-email"
+              id="user-email"/>
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             <div className="sign-in__field">
-              <input onChange={handleChangePassword} className="sign-in__input" type="password" placeholder="Password"
-                name="user-password"
-                id="user-password"/>
+              <input onChange={(evt)=>{
+                setInternalState(
+                    Object.assign(
+                        {}, internalState, {
+                          inputPassword: evt.target.value
+                        }));
+              }} className="sign-in__input" type="password" placeholder="Password"
+              name="user-password"
+              id="user-password"/>
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
           </div>
@@ -62,13 +121,20 @@ const AuthScreen = (props) => {
 };
 
 AuthScreen.propTypes = {
-  errorEmail: PropTypes.string.isRequired,
-  errorPassword: PropTypes.string.isRequired,
-  handleChangePassword: PropTypes.func.isRequired,
-  handleChangeEmail: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
   onSubmit: PropTypes.func,
   errorAuthorization: PropTypes.string.isRequired,
 };
 
-export default AuthScreen;
+// export default AuthScreen;
+const mapStateToProps = ({USER}) => ({
+  errorAuthorization: USER.errorAuthorization
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit(authData) {
+    dispatch(login(authData));
+  }
+});
+
+export {AuthScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import propsForFilms from "../../prop-types/prop-types-for-films";
 import propsForReviews from "../../prop-types/prop-types-for-reviws";
 import TabsForMoviePageScreen from "../tabs-for-movie-page-screen/tabs-for-movie-page-screen";
-import withTabs from "../../hocs/with-tabs/with-tabs";
 import MoreLikeThisFilm from "../more-like-this-film/more-like-this-film";
 import withActiveItem from "../../hocs/with-active-item/with-active-item";
 import {Link} from "react-router-dom";
@@ -14,7 +13,6 @@ import {returnFilmForID} from "../../utils";
 import Avatar from "../avatar/avatar";
 
 const MoreLikeFilms = withActiveItem(MoreLikeThisFilm);
-const TabsInMoviePage = withTabs(TabsForMoviePageScreen);
 
 export class MoviePage extends PureComponent {
   constructor(props) {
@@ -98,7 +96,7 @@ export class MoviePage extends PureComponent {
                   height="327"/>
               </div>
 
-              <TabsInMoviePage film={returnFilmForID(id, films)} reviews={reviews}/>
+              <TabsForMoviePageScreen film={returnFilmForID(id, films)} reviews={reviews}/>
 
             </div>
           </div>

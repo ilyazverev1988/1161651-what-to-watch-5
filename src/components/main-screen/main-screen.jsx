@@ -5,15 +5,12 @@ import ListOfGenres from "../list-of-genres/list-of-genres";
 import propsForFilms from "../../prop-types/prop-types-for-films";
 import {connect} from "react-redux";
 import ButtonShowMore from "../button-show-more/button-show-more";
-import withActiveItem from "../../hocs/with-active-item/with-active-item";
 import {getFilmsByGenre} from "../../store/selectors";
 import {Link} from "react-router-dom";
 import {addPromoToFavorite} from "../../store/api-action";
 import {store} from "../../index";
 import {ActionCreator} from "../../store/action";
 import Avatar from "../avatar/avatar";
-
-const ListFilmWithActive = withActiveItem(ListFilm);
 
 const Mainscreen = (props) => {
   const {films, listOfCardsFilm, cardsOfShownFilms, filmPromo} = props;
@@ -98,7 +95,7 @@ const Mainscreen = (props) => {
 
               <ListOfGenres/>
 
-              <ListFilmWithActive films={listOfCardsFilm.slice(0, cardsOfShownFilms)}/>
+              <ListFilm films={listOfCardsFilm.slice(0, cardsOfShownFilms)}/>
 
               {listOfCardsFilm.length > cardsOfShownFilms ? <ButtonShowMore/> : null}
 
