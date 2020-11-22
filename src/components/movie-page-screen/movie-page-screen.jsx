@@ -4,15 +4,12 @@ import propsForFilms from "../../prop-types/prop-types-for-films";
 import propsForReviews from "../../prop-types/prop-types-for-reviws";
 import TabsForMoviePageScreen from "../tabs-for-movie-page-screen/tabs-for-movie-page-screen";
 import MoreLikeThisFilm from "../more-like-this-film/more-like-this-film";
-import withActiveItem from "../../hocs/with-active-item/with-active-item";
 import {Link} from "react-router-dom";
 import {addFilmToFavorite, fetchCommetsFilm} from "../../store/api-action";
 import {store} from "../../index";
 import {connect} from "react-redux";
 import {returnFilmForID} from "../../utils";
 import Avatar from "../avatar/avatar";
-
-const MoreLikeFilms = withActiveItem(MoreLikeThisFilm);
 
 export class MoviePage extends PureComponent {
   constructor(props) {
@@ -104,7 +101,7 @@ export class MoviePage extends PureComponent {
         <div className="page-content">
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
-            <MoreLikeFilms films={filmsByGenre} />
+            <MoreLikeThisFilm films={filmsByGenre} />
           </section>
 
           <footer className="page-footer">

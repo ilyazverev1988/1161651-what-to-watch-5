@@ -105,8 +105,11 @@ const ReviewForm = (props) => {
 };
 
 ReviewForm.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   error: PropTypes.oneOfType([PropTypes.bool.isRequired, PropTypes.string.isRequired]),
 };
 
 export default ReviewForm;
+
+
+
