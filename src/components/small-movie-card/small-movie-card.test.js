@@ -58,7 +58,9 @@ describe(`Should SmallMovieCard render correctly`, () => {
             />
           </MemoryRouter>, {
             createNodeMock: () => {
-              return {};
+              return {
+                play: () => {},
+              };
             }
           }
       )
@@ -78,7 +80,9 @@ describe(`Should SmallMovieCard render correctly`, () => {
             />
           </MemoryRouter>, {
             createNodeMock: () => {
-              return {};
+              return {
+                play: () => {},
+              };
             }
           }
       )

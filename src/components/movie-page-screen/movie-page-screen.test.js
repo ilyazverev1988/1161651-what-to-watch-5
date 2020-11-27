@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {MoviePage} from "./movie-page-screen";
+import MoviePage from "./movie-page-screen";
 import {MemoryRouter} from "react-router-dom";
 import configureMockStore from "redux-mock-store";
 import {Provider} from "react-redux";
@@ -80,6 +80,9 @@ const store = mockStore({
     },
     authorizationStatus: `AUTH`
   },
+  DATA: {
+    comments: reviews
+  }
 });
 
 const storeForSecondTest = mockStore({
@@ -87,6 +90,9 @@ const storeForSecondTest = mockStore({
     userData: {},
     authorizationStatus: `NO_AUTH`
   },
+  DATA: {
+    comments: reviews
+  }
 });
 
 describe(`Should MoviePage render correctly`, () => {
