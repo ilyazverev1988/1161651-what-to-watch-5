@@ -36,7 +36,7 @@
     "node": "10"
   },
   "dependencies": {
-    "@testing-library/react-hooks": "3.4.2",
+    "@testing-library/react": "11.2.2",
     "axios": "0.19.2",
     "history": "4.10.1",
     "prop-types": "15.7.2",

@@ -3,7 +3,6 @@ import renderer from "react-test-renderer";
 import ListFilm from "./list-film";
 import {MemoryRouter} from "react-router-dom";
 
-const noop = () => {};
 const films = [
   {
     id: 1,
@@ -46,35 +45,12 @@ const films = [
 ];
 
 describe(`Should ListFilm render correctly`, () => {
-  it(`With filmActive`, () => {
-    const tree = renderer
-      .create(
-          <MemoryRouter>
-            <ListFilm
-              filmActive={``}
-              films={films}
-              handleMouseEnterFilm={noop}
-              handleMouseOverFilm={noop}
-            />
-          </MemoryRouter>, {
-            createNodeMock: () => {
-              return {};
-            }
-          }
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
   it(`No filmActive`, () => {
     const tree = renderer
       .create(
           <MemoryRouter>
             <ListFilm
-              filmActive={1}
               films={films}
-              handleMouseEnterFilm={noop}
-              handleMouseOverFilm={noop}
             />
           </MemoryRouter>, {
             createNodeMock: () => {

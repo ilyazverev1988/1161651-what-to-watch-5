@@ -2,79 +2,28 @@ import React from "react";
 import renderer from "react-test-renderer";
 import AuthScreen from "./auth-screen";
 import {MemoryRouter} from 'react-router-dom';
+import {Provider} from "react-redux";
+import configureMockStore from "redux-mock-store";
 
-let errorEmail = `Please enter a valid email address`;
-let errorPassword = `Please enter a password`;
-let errorAuthorization = `We can’t recognize this email and password combination. Please try again.`;
-const noop = () => {};
+const mockStore = configureMockStore();
+const store = mockStore({
+  USER: {
+    errorAuthorization: ``
+  }
+});
 
-describe(`Should AuthScreen render correctly`, () => {
-  it(`With no error`, () => {
-    const tree = renderer
+it(`Should render AuthScreen with initial state`, () => {
+  const tree = renderer
       .create(
-          <MemoryRouter>
-            <AuthScreen
-              errorEmail={``}
-              errorPassword={``}
-              errorAuthorization={``}
-              handleChangePassword={noop}
-              handleChangeEmail={noop}
-              handleSubmit={noop}
-            />
-          </MemoryRouter>)
+          <Provider store={store}>
+            <MemoryRouter>
+              <AuthScreen/>
+            </MemoryRouter>
+          </Provider>, {
+            createNodeMock: () => {
+              return {};
+            }
+          })
       .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(`With errorEmail`, () => {
-    const tree = renderer
-      .create(
-          <MemoryRouter>
-            <AuthScreen
-              errorEmail={errorEmail}
-              errorPassword={``}
-              errorAuthorization={``}
-              handleChangePassword={noop}
-              handleChangeEmail={noop}
-              handleSubmit={noop}
-            />
-          </MemoryRouter>)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(`With errorPassword`, () => {
-    const tree = renderer
-      .create(
-          <MemoryRouter>
-            <AuthScreen
-              errorEmail={``}
-              errorPassword={errorPassword}
-              errorAuthorization={``}
-              handleChangePassword={noop}
-              handleChangeEmail={noop}
-              handleSubmit={noop}
-            />
-          </MemoryRouter>)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(`With errorAuthorization`, () => {
-    const tree = renderer
-      .create(
-          <MemoryRouter>
-            <AuthScreen
-              errorEmail={``}
-              errorPassword={``}
-              errorAuthorization={errorAuthorization}
-              handleChangePassword={noop}
-              handleChangeEmail={noop}
-              handleSubmit={noop}
-            />
-          </MemoryRouter>)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
+  expect(tree).toMatchSnapshot();
 });

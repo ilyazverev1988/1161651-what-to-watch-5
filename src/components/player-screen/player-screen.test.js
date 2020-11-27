@@ -2,7 +2,6 @@ import React from "react";
 import renderer from "react-test-renderer";
 import Player from "./player-screen";
 
-const noop = () => {};
 const films = [
   {
     id: 1,
@@ -43,39 +42,17 @@ const films = [
     linkFullVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1f/Fai_Ming_Estate_roadblock_20200126.webm/Fai_Ming_Estate_roadblock_20200126.webm.360p.vp9.webm`
   }
 ];
+const match = {params: {id: `1`}};
 
-describe(`Should Player render correctly`, () => {
-  it(`With playFilm=true`, () => {
-    const tree = renderer
+it(`Should Player render correctly`, () => {
+  const tree = renderer
       .create(
           <Player
-            playFilm={true}
-            film={films[1]}
-            progressVideo={1}
-            timeLeftFilm={1}
-            handleClickFullScreen={noop}
-            handlePlayFilm={noop}
-            handlePauseFilm={noop}
+            films={films}
+            match={match}
           />
       )
       .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(`With playFilm=false`, () => {
-    const tree = renderer
-      .create(
-          <Player
-            playFilm={false}
-            film={films[1]}
-            progressVideo={1}
-            timeLeftFilm={1}
-            handleClickFullScreen={noop}
-            handlePlayFilm={noop}
-            handlePauseFilm={noop}
-          />
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
+  expect(tree).toMatchSnapshot();
 });
+

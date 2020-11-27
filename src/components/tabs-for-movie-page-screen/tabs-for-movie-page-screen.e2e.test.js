@@ -1,13 +1,13 @@
 import React from "react";
-import Enzyme, {shallow} from "enzyme";
+import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import TabsForMoviePageScreen from "./tabs-for-movie-page-screen";
+import {render as renderTest} from '@testing-library/react';
 
 Enzyme.configure({
   adapter: new Adapter(),
 });
 
-const noop = () => {};
 const films = [
   {
     id: 1,
@@ -71,65 +71,14 @@ const reviews = [
   }
 ];
 
-it(`Should overview button be pressed`, () => {
-  const handleClickReviews = jest.fn();
-
-  const wrapper = shallow(
-      <TabsForMoviePageScreen
-        film={films[1]}
-        reviews={reviews}
-        handleClickOverview={noop}
-        handleClickDetails={noop}
-        handleClickReviews={ handleClickReviews}
-        Details={true}
-        Overview={false}
-        Reviews={false}
-      />
-  );
-
-  const buttonOverview = wrapper.find(`a.movie-nav__link`).at(`2`);
-  buttonOverview.simulate(`click`);
-  expect(handleClickReviews).toHaveBeenCalledTimes(1);
+it(`Should initial state in tabs`, () => {
+  renderTest(<TabsForMoviePageScreen film={films[1]} reviews={reviews}/>);
+  expect(document.querySelector(`li:first-child`).classList.contains(`movie-nav__item--active`)).toBe(true);
+  expect(document.querySelector(`.movie-rating__score`).textContent).toBe(`8.9`);
+  expect(document.querySelector(`.movie-rating__level`).textContent).toBe(`Very good`);
+  expect(document.querySelector(`.movie-rating__count`).textContent).toBe(`3 ratings`);
+  expect(document.querySelector(`.movie-card__text>p`).textContent).toBe(`Friendship, metamorphosis, and adventure.`);
+  expect(document.querySelector(`.movie-card__director`).textContent).toBe(`Director: Wes Andreson`);
+  expect(document.querySelector(`.movie-card__starring`).textContent).toBe(`Starring: Bill Murray, Jude Law and other`);
 });
 
-it(`Should details button be pressed`, () => {
-  const handleClickDetails = jest.fn();
-
-  const wrapper = shallow(
-      <TabsForMoviePageScreen
-        film={films[1]}
-        reviews={reviews}
-        handleClickOverview={noop}
-        handleClickDetails={handleClickDetails}
-        handleClickReviews={noop}
-        Details={false}
-        Overview={true}
-        Reviews={false}
-      />
-  );
-
-  const buttonOverview = wrapper.find(`a.movie-nav__link`).at(`1`);
-  buttonOverview.simulate(`click`);
-  expect(handleClickDetails).toHaveBeenCalledTimes(1);
-});
-
-it(`Should reviews button be pressed`, () => {
-  const handleClickReviews = jest.fn();
-
-  const wrapper = shallow(
-      <TabsForMoviePageScreen
-        film={films[1]}
-        reviews={reviews}
-        handleClickOverview={noop}
-        handleClickDetails={noop}
-        handleClickReviews={handleClickReviews}
-        Details={false}
-        Overview={true}
-        Reviews={false}
-      />
-  );
-
-  const buttonOverview = wrapper.find(`a.movie-nav__link`).at(`2`);
-  buttonOverview.simulate(`click`);
-  expect(handleClickReviews).toHaveBeenCalledTimes(1);
-});

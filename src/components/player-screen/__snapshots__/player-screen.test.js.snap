@@ -1,9 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should Player render correctly With playFilm=false 1`] = `
+exports[`Should Player render correctly 1`] = `
 <div
   className="player"
 >
+  <video
+    className="player__video"
+    onPause={[Function]}
+    onPlay={[Function]}
+    onTimeUpdate={[Function]}
+    poster="img/the-grand-budapest-hotel-poster.jpg"
+  />
   <button
     className="player__exit"
     onClick={[Function]}
@@ -23,13 +30,13 @@ exports[`Should Player render correctly With playFilm=false 1`] = `
         <progress
           className="player__progress"
           max="100"
-          value="1"
+          value="null"
         />
         <div
           className="player__toggler"
           style={
             Object {
-              "left": "1%",
+              "left": "null%",
             }
           }
         >
@@ -39,98 +46,7 @@ exports[`Should Player render correctly With playFilm=false 1`] = `
       <div
         className="player__time-value"
       >
-        00:00:01
-      </div>
-    </div>
-    <div
-      className="player__controls-row"
-    >
-      <button
-        className="player__play"
-        onClick={[Function]}
-        type="button"
-      >
-        <svg
-          height="19"
-          viewBox="0 0 19 19"
-          width="19"
-        >
-          <use
-            xlinkHref="#play-s"
-          />
-        </svg>
-        <span>
-          Play
-        </span>
-      </button>
-      <div
-        className="player__name"
-      >
-        Aviator2
-      </div>
-      <button
-        className="player__full-screen"
-        onClick={[Function]}
-        type="button"
-      >
-        <svg
-          height="27"
-          viewBox="0 0 27 27"
-          width="27"
-        >
-          <use
-            xlinkHref="#full-screen"
-          />
-        </svg>
-        <span>
-          Full screen
-        </span>
-      </button>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Should Player render correctly With playFilm=true 1`] = `
-<div
-  className="player"
->
-  <button
-    className="player__exit"
-    onClick={[Function]}
-    type="button"
-  >
-    Exit
-  </button>
-  <div
-    className="player__controls"
-  >
-    <div
-      className="player__controls-row"
-    >
-      <div
-        className="player__time"
-      >
-        <progress
-          className="player__progress"
-          max="100"
-          value="1"
-        />
-        <div
-          className="player__toggler"
-          style={
-            Object {
-              "left": "1%",
-            }
-          }
-        >
-          Toggler
-        </div>
-      </div>
-      <div
-        className="player__time-value"
-      >
-        00:00:01
+        00:00:00
       </div>
     </div>
     <div
@@ -160,7 +76,7 @@ exports[`Should Player render correctly With playFilm=true 1`] = `
       <div
         className="player__name"
       >
-        Aviator2
+        Aviator1
       </div>
       <button
         className="player__full-screen"

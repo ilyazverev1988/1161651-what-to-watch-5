@@ -3,7 +3,6 @@ import renderer from "react-test-renderer";
 import MoreLikeThisFilm from "./more-like-this-film";
 import {MemoryRouter} from 'react-router-dom';
 
-const noop = () => {};
 const films = [
   {
     id: 1,
@@ -51,31 +50,7 @@ describe(`Should MoreLikeThisFilm render correctly`, () => {
       .create(
           <MemoryRouter>
             <MoreLikeThisFilm
-              filmActive={``}
               films={films}
-              handleMouseEnterFilm={noop}
-              handleMouseOverFilm={noop}
-            />
-          </MemoryRouter>, {
-            createNodeMock: () => {
-              return {};
-            }
-          }
-      )
-      .toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(`With filmActive`, () => {
-    const tree = renderer
-      .create(
-          <MemoryRouter>
-            <MoreLikeThisFilm
-              filmActive={1}
-              films={films}
-              handleMouseEnterFilm={noop}
-              handleMouseOverFilm={noop}
             />
           </MemoryRouter>, {
             createNodeMock: () => {

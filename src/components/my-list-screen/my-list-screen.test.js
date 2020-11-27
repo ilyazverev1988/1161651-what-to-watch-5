@@ -5,7 +5,6 @@ import {MemoryRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import configureMockStore from "redux-mock-store";
 
-const noop = () => {};
 const films = [
   {
     id: 1,
@@ -61,16 +60,13 @@ const store = mockStore({
 });
 
 describe(`Should MyList render correctly`, () => {
-  it(`With filmActive`, () => {
+  it(`With No filmActive`, () => {
     const tree = renderer
       .create(
           <Provider store={store}>
             <MemoryRouter>
               <MyList
-                filmActive={``}
                 films={films}
-                handleMouseEnterFilm={noop}
-                handleMouseOverFilm={noop}
               />
             </MemoryRouter>
           </Provider>, {
@@ -82,27 +78,4 @@ describe(`Should MyList render correctly`, () => {
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
-
-  it(`No filmActive`, () => {
-    const tree = renderer
-      .create(
-          <Provider store={store}>
-            <MemoryRouter>
-              <MyList
-                filmActive={1}
-                films={films}
-                handleMouseEnterFilm={noop}
-                handleMouseOverFilm={noop}
-              />
-            </MemoryRouter>
-          </Provider>, {
-            createNodeMock: () => {
-              return {};
-            }
-          }
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
 });
